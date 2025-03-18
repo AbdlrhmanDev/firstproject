@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -21,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
         
     ];
 
@@ -52,8 +54,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Application::class);
     }
-    public function Resume(){
-        return $this->hasMany(Resume::class);
+    public function resume()
+    {
+        return $this->hasOne(Resume::class); // Ensure it's hasOne, not hasMany
     }
     public function jobs()
     {

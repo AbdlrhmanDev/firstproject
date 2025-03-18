@@ -34,9 +34,9 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
-                            <x-dropdown-link :href="route('dashboard')">
-                                {{ __('Dashboard') }}
-                            </x-dropdown-link>
+                        <x-dropdown-link :href="route('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-dropdown-link>
 
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -48,8 +48,12 @@
                     </x-slot>
                 </x-dropdown>
             @else
-                <a href="{{ route('login') }}" class="text-blue-400 hover:text-blue-500 transition">Login</a>
-                <a href="{{ route('register') }}" class="text-green-400 hover:text-green-500 transition">Register</a>
+                <a href="{{ route('login') }}"
+                    class=" backdrop-blur-md backdrop-saturate-200 px-4 py-2 rounded-xl text-white font-semibold  shadow-lg border border-white/20 transition-all duration-300 hover:scale-105 hover:border-blue-400 hover:text-blue-300">
+                    Login</a>
+                <a href="{{ route('register') }}"
+                    class=" backdrop-blur-md backdrop-saturate-200 px-4 py-2 rounded-xl text-white font-semibold  shadow-lg border border-white/20 transition-all duration-300 hover:scale-105 hover:border-green-400 hover:text-green-300">
+                    Register</a>
             @endauth
         </div>
 

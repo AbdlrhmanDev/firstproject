@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('description'); // Job Description
             $table->decimal('salary', 10, 2); // Salary (Decimal Format)
             $table->boolean('featured')->default(false);
-            $table->string('logo'); // Logo
+            // $table->string('logo'); // Logo
             $table->foreignId('company_id')->constrained('employers')->onDelete('cascade'); // Foreign Key to Employers
             $table->timestamps(); // Created & Updated At
         });

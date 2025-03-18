@@ -32,7 +32,7 @@ class JobController extends Controller
     //         ->paginate(10); // Paginate results
 
     //     return view('jobs.index', compact('jobs'));
-   
+
     //     $jobs = Job::all();
     //      return view('jobs.index', compact('jobs'));
     // }

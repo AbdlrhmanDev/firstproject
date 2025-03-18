@@ -1,8 +1,46 @@
 import './bootstrap'
+// import Swiper JS
+import Swiper from 'swiper';
+// import Swiper styles
+import 'swiper/css';
 
 import Alpine from 'alpinejs'
 import collapse from '@alpinejs/collapse'
 import PerfectScrollbar from 'perfect-scrollbar'
+
+
+
+
+
+
+
+
+
+ var swiper = new Swiper(".mySwiper", {
+     slidesPerView: 1,
+     spaceBetween: 32,
+     loop: true,
+     centeredSlides: true,
+     pagination: {
+         el: ".swiper-pagination",
+         clickable: true,
+     },
+     autoplay: {
+         delay: 2000,
+         disableOnInteraction: false,
+     },
+     breakpoints: {
+         640: { slidesPerView: 1, spaceBetween: 32 },
+         768: { slidesPerView: 2, spaceBetween: 32 },
+         1024: { slidesPerView: 3, spaceBetween: 32 },
+     },
+     
+ });
+
+
+
+
+
 
 window.PerfectScrollbar = PerfectScrollbar
 
@@ -74,3 +112,5 @@ document.addEventListener('alpine:init', () => {
 Alpine.plugin(collapse)
 
 Alpine.start()
+
+

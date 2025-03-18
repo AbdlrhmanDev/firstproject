@@ -6,16 +6,16 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    public function jobs()
-    {
-        $jobs = [
-            (object) ['title' => 'Software Engineer', 'type' => 'Full Time', 'salary' => '$100,000'],
-            (object) ['title' => 'Data Analyst', 'type' => 'Full Time', 'salary' => '$80,000'],
-            (object) ['title' => 'Product Manager', 'type' => 'Full Time', 'salary' => '$120,000'],
-        ];
+    // public function jobs()
+    // {
+    //     $jobs = [
+    //         (object) ['title' => 'Software Engineer', 'type' => 'Full Time', 'salary' => '$100,000'],
+    //         (object) ['title' => 'Data Analyst', 'type' => 'Full Time', 'salary' => '$80,000'],
+    //         (object) ['title' => 'Product Manager', 'type' => 'Full Time', 'salary' => '$120,000'],
+    //     ];
 
-        return view('pages/jobs', compact('jobs'));
-    }
+    //     return view('pages/jobs', compact('jobs'));
+    // }
 
     public function career()
     {

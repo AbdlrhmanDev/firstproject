@@ -14,17 +14,17 @@ class HomeController extends Controller
     {
         $featuredJobs = Job::where('featured', true)->take(8)->get();
 
-           $recentJobs = Job::with('tags')->latest()->take(8)->get();
+        $recentJobs = Job::with('tags')->latest()->paginate(6);
 
-        
-         return view('home', [
+
+        return view('home', [
             'jobs' => $featuredJobs->first() ?? null, // Avoid indexing directly
             'featuredJobs' => $featuredJobs->slice(1)->values() ?? [], // Avoid direct index access
             'tags' => Tag::all(),
             'recentJobs' => $recentJobs,
         ]);
     }
-}
+}   
 // return view('home',  [
         //     'jobs' => $featuredJobs[0],
         //     'featuredJobs' => $featuredJobs[1],

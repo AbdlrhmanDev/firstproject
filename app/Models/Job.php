@@ -14,11 +14,10 @@ class Job extends Model
         'salary',
         'company_id',
         'featured',
-        'logo',
     ];
 
     // Ensure tags are cast as an array
-   
+
     public function application()
     {
         return $this->hasMany(Application::class);
@@ -71,5 +70,4 @@ class Job extends Model
     {
         return $query->where('featured', $featured);
     }
-   
 }

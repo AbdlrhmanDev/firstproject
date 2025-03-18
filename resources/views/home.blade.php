@@ -1,111 +1,123 @@
-
-
 @extends('layouts.app')
 
 @section('title', 'Job Portal')
 
 @section('content')
     <div class="container mx-auto px-4 py-10 ">
+
         <!-- Header -->
-        <h1 class="text-4xl font-bold text-center mb-6 text-white">Let's Find Your Next Job</h1>
+
+        <h1 class="text-4xl font-bold text-center mb-6 text-white">Find Your Dream Job – Apply Today!</h1>
+        <p class="text-white text-center my-4">Thousands of job opportunities are waiting for you.</p>
 
         <!-- Search Bar -->
         <div class="flex justify-center mb-10">
-            <input type="text" placeholder="Web Developer..."
-                class="w-full max-w-lg p-3 rounded-md bg-gray-700 border border-gray-700 text-white">
-        </div>
+            <div class="relative w-full max-w-lg">
+                <!-- Input Field -->
+                <input type="text" id="job-search"
+                    class="peer w-full p-4 rounded-md bg-white/10 backdrop-blur-lg border border-white/20 text-white focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition shadow-lg"
+                    placeholder=" ">
 
-        <!-- Featured Jobs Section -->
-        {{-- <div class="mt-10">
-            <h2 class="text-2xl font-semibold mb-4 text-white" >Featured Jobs</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                @foreach ($featuredJobs as $job)
-                    <div
-                        class="text-white bg-gray-700 p-6 rounded-lg shadow-lg border-2 border-transparent hover:border-sky-500 transition-all duration-300 hover:scale-105">
-                        <h3 class="text-xl font-bold">{{ $job->title }}</h3>
-                        <p class="text-gray-500">{{ $job->description }}</p>
-                        <h5 class="text-gray-400">{{ $job->salary }} USD</h5>
-
-                        <div class="mt-2 flex flex-wrap gap-2">
-                            @foreach ($job->tags as $tag)
-                                <span class="text-white bg-gray-700 px-3 py-1 rounded-full text-sm">{{ $tag->name }}</span>
-                            @endforeach
-
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div> --}}
-        <div class="mt-10">
-            <h2 class="text-2xl font-semibold mb-4 text-white">Featured Jobs</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                @if($featuredJobs->isEmpty())
-                    {{-- Skeleton Loading Placeholder --}}
-                    @for ($i = 0; $i < 3; $i++)
-                        <div class="mx-auto w-full max-w-sm rounded-md border border-blue-300 p-4">
-                            <div class="flex animate-pulse space-x-4">
-                                <div class="size-10 rounded-full bg-gray-200"></div>
-                                <div class="flex-1 space-y-6 py-1">
-                                    <div class="h-2 rounded bg-gray-200"></div>
-                                    <div class="space-y-3">
-                                        <div class="grid grid-cols-3 gap-4">
-                                            <div class="col-span-2 h-2 rounded bg-gray-200"></div>
-                                            <div class="col-span-1 h-2 rounded bg-gray-200"></div>
-                                        </div>
-                                        <div class="h-2 rounded bg-gray-200"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endfor
-                @else
-                    {{-- Actual Featured Jobs Content --}}
-                    @foreach ($featuredJobs as $job)
-                        <div
-                            class="text-white bg-gray-700 p-6 rounded-lg shadow-lg border-2 border-transparent hover:border-sky-500 transition-all duration-300 hover:scale-105">
-                            <h3 class="text-xl font-bold">{{ $job->title }}</h3>
-                            <p class="text-gray-500">{{ $job->description }}</p>
-                            <h5 class="text-gray-400">{{ $job->salary }} USD</h5>
-
-                            <div class="mt-2 flex flex-wrap gap-2">
-                                @foreach ($job->tags as $tag)
-                                    <span class="text-white bg-gray-700 px-3 py-1 rounded-full text-sm">{{ $tag->name }}</span>
-                                @endforeach
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
+                <!-- Floating Label (Hides on Typing) -->
+                <label for="job-search"
+                    class="absolute left-4 top-3 text-gray-400 text-lg transition-all duration-300 peer-placeholder-shown:opacity-100 peer-focus:opacity-0">
+                    Web Developer
+                </label>
             </div>
         </div>
+
+
+        {{-- button --}}
+        <div class="mt-8 flex justify-center space-x-4">
+            <a href="{{ route('jobs.index') }}"
+                class="bg-white/10 backdrop-blur-md backdrop-saturate-200 px-6 py-3 rounded-xl text-white font-semibold text-lg shadow-lg border border-white/20 transition-all duration-300 hover:scale-105 hover:border-blue-400 hover:text-blue-300">
+                📝 Browse Jobs
+            </a>
+            <a href="{{ route('login') }}"
+                class="bg-white/10 backdrop-blur-md backdrop-saturate-200 px-6 py-3 rounded-xl text-white font-semibold text-lg shadow-lg border border-white/20 transition-all duration-300 hover:scale-105 hover:border-green-400 hover:text-green-300">
+                📢 Post a Job
+            </a>
+        </div>
+
+   
+
+
+
+
+        {{-- Featured Jobs --}}
+        @include('components.featured')
+        {{-- End Featured Jobs --}}
+
 
 
         <!-- Tags Section -->
-        <div class="mt-8">
-            <h2 class="text-white text-xl font-semibold">Tags</h2>
-            <div class="flex flex-wrap gap-2 mt-2">
-                @foreach ($tags as $tag)
-                    <span class="text-white bg-gray-700 px-3 py-1 rounded-full text-sm">{{ $tag->name }}</span>
-                @endforeach
-            </div>
-        </div>
+        @include('components.tags')
+        <!-- End Tags Section -->
+
+
 
         <!-- Recent Jobs Section -->
-        <div class="mt-10">
-            <h2 class="text-white text-2xl font-semibold mb-4">Recent Jobs</h2>
-            @foreach ($recentJobs as $recentJob)
-                <div
-                    class="bg-gray-700 p-6 my-7 rounded-lg shadow-lg border-2 border-transparent hover:border-sky-500 transition-all duration-300">
-                    <h3 class="text-white text-xl font-bold hover:text-sky-500 transition-all duration-300">{{ $recentJob->title }}</h3>
-                    <p class="text-white text-gray-400">{{ $recentJob->type }} - From {{ $recentJob->salary }} USD</p>
+        @include('components.recent-jobs')
+        <!--End Recent Jobs Section -->
 
-                    <div class="mt-2 flex gap-2">
-                        @foreach ($recentJob->tags as $tag)
-                            <span class="text-white bg-gray-700 px-3 py-1 rounded-full text-sm">{{ $tag->name }}</span>
+
+        <!-- Testimonials -->
+        {{-- @include('components.testimonials') --}}
+        <!-- Testimonials -->
+
+        <!-- How its Working -->
+        {{-- @include('components.How-works') --}}
+        <!-- End How its Working -->
+         <div class="mt-12 flex flex-col items-center text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">Ready to Take the Next Step?</h2>
+            <p class="text-gray-300 mb-6">Join thousands of professionals and employers finding success here.</p>
+
+            <div class="flex flex-wrap justify-center gap-6">
+                <!-- Job Seeker CTA -->
+                <a href="{{ route('register') }}"
+                    class="bg-white/10 backdrop-blur-md backdrop-saturate-200 px-6 py-3 rounded-xl text-white font-semibold text-lg shadow-lg border border-white/20 transition-all duration-300 hover:scale-105 hover:border-blue-400 hover:text-blue-300">
+                    📩 Sign Up Now
+                </a>
+
+                <!-- Employer CTA -->
+                <a href="{{ route('register') }}"
+                    class="bg-white/10 backdrop-blur-md backdrop-saturate-200 px-6 py-3 rounded-xl text-white font-semibold text-lg shadow-lg border border-white/20 transition-all duration-300 hover:scale-105 hover:border-green-400 hover:text-green-300">
+                    📊 Start Hiring
+                </a>
+            </div>
+        </div> 
+
+        <!-- Footer -->
+        @extends('layouts.footer')
+        <!-- End Footer -->
+
+
+    </div>
+
+@endsection  
+
+
+
+
+
+<!-- Featured Jobs Section -->
+         {{-- <div class="mt-10">
+            <h2 class="text-2xl font-semibold mb-4 text-white">Featured Jobs</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                @foreach ($featuredJobs as $job)
+                <div
+                    class="text-white bg-gray-700 p-6 rounded-lg shadow-lg border-2 border-transparent hover:border-sky-500 transition-all duration-300 hover:scale-105">
+                    <h3 class="text-xl font-bold">{{ $job->title }}</h3>
+                    <p class="text-gray-500">{{ $job->description }}</p>
+                    <h5 class="text-gray-400">{{ $job->salary }} USD</h5>
+
+                    <div class="mt-2 flex flex-wrap gap-2">
+                        @foreach ($job->tags as $tag)
+                        <span class="text-white bg-gray-700 px-3 py-1 rounded-full text-sm">{{ $tag->name }}</span>
                         @endforeach
+
                     </div>
                 </div>
-            @endforeach
-        </div>
-    </div>
-@endsection
+                @endforeach
+            </div>
+        </div>  --}}

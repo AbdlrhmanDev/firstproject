@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -24,12 +25,31 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // $url = "dashboard";
+
+        // if ($request->user()->role == "admin") {
+        //     $url = "admin/dashboard";
+        // } else if ($request->user()->role == "employer") {
+        //     $url = "employer/dashboard";
+        // }
+
+        // return redirect()->intended($url);
+        $redirectPaths = [
+            'admin' => 'admin/home',
+            'employer' => 'employer/home',
+            'user' => 'dashboard',
+        ];
+
+        $url = $redirectPaths[$request->user()->role] ?? 'dashboard';
+
+        return redirect()->intended($url);
     }
+
 
     /**
      * Destroy an authenticated session.
@@ -39,8 +59,10 @@ class AuthenticatedSessionController extends Controller
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
+
+        Redirect::back();
+
 
         return redirect('/');
     }

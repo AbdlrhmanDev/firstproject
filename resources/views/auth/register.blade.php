@@ -106,12 +106,7 @@
                                 class="w-full mt-1 p-3 bg-transparent border border-white/30 text-white rounded-md focus:outline-none focus:border-blue-400 transition">
                         </div>
 
-                        <!-- Phone Number -->
-                        <div class="mb-4">
-                            <label for="phone" class="block text-gray-300 text-sm font-semibold">Phone Number</label>
-                            <input id="phone" type="text" name="phone" required autocomplete="tel"
-                                class="w-full mt-1 p-3 bg-transparent border border-white/30 text-white rounded-md focus:outline-none focus:border-blue-400 transition">
-                        </div>
+                       
 
                         <!-- Password -->
                         <div class="mb-4">

@@ -8,13 +8,13 @@
             <h2 class="text-2xl font-extrabold text-center mb-6">User Dashboard</h2>
 
             <nav class="space-y-4">
-                <a href="{{ route('user.dashboard') }}" class="block p-3 rounded-lg hover:bg-white/20 transition">🏠
+                <a href="" class="block p-3 rounded-lg hover:bg-white/20 transition">🏠
                     Home</a>
-                <a href="{{ route('profile.edit') }}" class="block p-3 rounded-lg hover:bg-white/20 transition">👤
+                <a href="" class="block p-3 rounded-lg hover:bg-white/20 transition">👤
                     Profile</a>
-                <a href="{{ route('resume.index') }}" class="block p-3 rounded-lg hover:bg-white/20 transition">📄
+                <a href="" class="block p-3 rounded-lg hover:bg-white/20 transition">📄
                     Resume</a>
-                <a href="{{ route('orders.index') }}" class="block p-3 rounded-lg hover:bg-white/20 transition">📦
+                <a href="" class="block p-3 rounded-lg hover:bg-white/20 transition">📦
                     Orders</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -29,10 +29,10 @@
             <button id="toggleSidebar" class="md:hidden bg-blue-500 px-4 py-2 rounded-lg mb-4 text-white">☰ Menu</button>
 
             <h1 class="text-3xl font-extrabold text-white mb-4">Welcome, {{ Auth::user()->name }}</h1>
-
+{{-- 
             <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-6 rounded-lg shadow-lg">
                 @yield('dashboard-content')
-            </div>
+            </div> --}}
         </div>
     </div>
 

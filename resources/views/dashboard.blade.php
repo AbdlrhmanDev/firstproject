@@ -1,118 +1,53 @@
 @extends('layouts.app')
 
-@section('header')
-    <h2 class="font-semibold text-xl text-white leading-tight">
-        {{ __('Dashboard') }}
-    </h2>
-
-@endsection
-
 @section('content')
-user
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class=" dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <h1 class="text-lg text-gray-300 mb-4">Manage Job Listings</h1>
+    <!-- Drawer Trigger Button (Mobile) -->
+    <button id="toggleSidebar" data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar"
+        aria-controls="default-sidebar" type="button"
+        class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+        <span class="sr-only">Open sidebar</span>
+        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path clip-rule="evenodd" fill-rule="evenodd"
+                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+            </path>
+        </svg>
+    </button>
 
-                <!-- Create Job Button -->
-                <div class="flex justify-end mb-4">
-                    <a href="{{ route('jobs.create') }}"
-                        class="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-5 py-2 rounded-md shadow-md transition-transform transform hover:scale-105">
-                        + Create New Job
-                    </a>
-                </div>
+    <!-- Sidebar -->
+    <aside id="default-sidebar"
+        class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 bg-white/10 backdrop-blur-lg border-r border-white/20 shadow-xl text-white rounded-tr-3xl rounded-br-3xl"
+        aria-label="Sidebar">
+        <div class="h-full px-3 py-4 overflow-y-auto">
+            <h2 class="text-2xl font-extrabold text-center mb-6 mt-4">User Dashboard</h2>
+            <ul class="space-y-2 font-medium">
+                <li><a href="{{ route('user.home') }}" class="flex items-center p-2 hover:bg-white/20 rounded-lg">🏠 <span
+                            class="ms-3">Home</span></a></li>
+                <li><a href="{{ route('profile.edit') }}" class="flex items-center p-2 hover:bg-white/20 rounded-lg">👤
+                        <span class="ms-3">Profile</span></a></li>
+                <li><a href="{{ route('user.resume.index') }}" class="flex items-center p-2 hover:bg-white/20 rounded-lg">📄
+                        <span class="ms-3">Resume</span></a></li>
+                <li><a href="{{ route('user.orders') }}" class="flex items-center p-2 hover:bg-white/20 rounded-lg">📦 <span
+                            class="ms-3">Orders</span></a></li>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="flex items-center w-full p-2 hover:bg-red-500 rounded-lg">🚪 <span
+                                class="ms-3">Logout</span></button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </aside>
 
-
-                <!-- Jobs Table -->
-                <div class="overflow-x-auto">
-                    <table class="min-w-full bg-gray-900 text-white border border-gray-700">
-                        <thead>
-                            <tr class="bg-gray-700 text-gray-300">
-                                <th class="px-4 py-2">#</th>
-                                <th class="px-4 py-2">Title</th>
-                                <th class="px-4 py-2">Type</th>
-                                <th class="px-4 py-2">Salary</th>
-                                <th class="px-4 py-2">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($jobs as $job)
-                                <tr class="border-t border-gray-600">
-                                    <td class="px-4 py-2">{{ $job->id }}</td>
-                                    <td class="px-4 py-2">{{ $job->title }}</td>
-                                    <td class="px-4 py-2">{{ $job->type }}</td>
-                                    <td class="px-4 py-2">${{ number_format($job->salary, 2) }}</td>
-                                    <td class="px-4 py-2 flex space-x-2">
-                                        <a href="{{ route('jobs.show', $job->id) }}"
-                                            class="text-blue-400 hover:underline">View</a>
-                                        <a href="{{ route('jobs.edit', $job->id) }}"
-                                            class="text-yellow-400 hover:underline">Edit</a>
-                                        <form action="{{ route('jobs.destroy', $job->id) }}" method="POST"
-                                            onsubmit="return confirm('Are you sure?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-400 hover:underline">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Pagination -->
-                <div class="mt-6 flex justify-center">
-                    {{ $jobs->links() }}
-                </div>
+    <!-- Main Content -->
+    <div class="p-4 sm:ml-64">
+        <div class="p-4  rounded-lg dark:border-gray-700">
+            <h1 class="text-3xl font-extrabold text-white mb-4">Welcome, {{ Auth::user()->name }}</h1>
+            <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-6 rounded-lg shadow-lg">
+                @yield('dashboard-content')
             </div>
         </div>
     </div>
 
-
-    <div class="container mx-auto px-6 py-10">
-        <a href="{{ route('resume.create') }}"
-            class=" bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-5 py-2 rounded-md shadow-md transition-transform transform hover:scale-105">
-            Create </a>
-
-        <h2 class="text-3xl font-bold text-white mb-6 mt-10">All Resumes</h2>
-
-        <table class="min-w-full bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-lg shadow-lg">
-            <thead>
-                <tr class="bg-white/20">
-                    <th class="p-4 border border-white/30">Full Name</th>
-                    <th class="p-4 border border-white/30">Phone</th>
-                    <th class="p-4 border border-white/30">Email</th>
-                    <th class="p-4 border border-white/30">Skills</th>
-                    <th class="p-4 border border-white/30">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($resumes as $cv)
-                    <tr class="hover:bg-white/20 transition">
-                        <td class="p-4 border border-white/30">{{ $cv->full_name }}</td>
-                        <td class="p-4 border border-white/30">{{ $cv->phone }}</td>
-                        <td class="p-4 border border-white/30">{{ $cv->email }}</td>
-                        <td class="p-4 border border-white/30">{{ Str::limit($cv->skills, 30) }}</td>
-                        <td class="p-4 border border-white/30 flex space-x-2">
-                            <a href="{{ route('resume.show', $cv->id) }}"
-                                class="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">View</a>
-                            <a href="{{ route('resume.edit', $cv->id) }}"
-                                class="px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600 transition">Edit</a>
-                            {{-- <form action="{{ route('resume.destroy', $cv->id) }}" method="POST"
-                                onsubmit="return confirm('Are you sure?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit"
-                                    class="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition">
-                                    Delete
-                                </button>
-                            </form> --}}
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-
-
+    
 @endsection

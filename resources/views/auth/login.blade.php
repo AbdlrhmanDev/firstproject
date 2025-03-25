@@ -61,6 +61,7 @@
 
 @section('content')
 
+
     <section class="h-screen flex items-center justify-center bg-black bg-opacity-80 relative">
         <!-- Background Glassmorphism Effects -->
         <div

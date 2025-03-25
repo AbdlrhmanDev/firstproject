@@ -62,11 +62,11 @@
 
 
         <!-- Testimonials -->
-        {{-- @include('components.testimonials') --}}
+        @include('components.testimonials')
         <!-- Testimonials -->
 
         <!-- How its Working -->
-        {{-- @include('components.How-works') --}}
+        @include('components.How-works')
         <!-- End How its Working -->
          <div class="mt-12 flex flex-col items-center text-center">
             <h2 class="text-3xl font-bold text-white mb-4">Ready to Take the Next Step?</h2>

@@ -19,14 +19,42 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory(4)->create();
-       Employer::factory(20)->create();
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('123456789'),
+            'role' => 'admin',
+        ]);
+        User::create([
+            'name' => 'user',
+            'email' => 'user@example.com',
+            'password' => bcrypt('123456789'),
+            'role' => 'user',
+        ]);
+
+
+        $employer = User::create([
+            'name' => 'Employer One',
+            'email' => 'employer@example.com',
+            'password' => bcrypt('123456789'),
+            'role' => 'employer',
+        ]);
+
+        $employer->company()->create([
+            'name' => 'Tech Corp',
+            'description' => 'We build awesome stuff.',
+        ]);
+
+
+
+        Employer::factory(20)->create();
         //  Job::factory(10)->create();
         Tag::factory(20)->create(); // Create 10 tags
         $this->call([
-            EmployerSeeder::class,
-             JobSeeder::class,
+            // EmployerSeeder::class,
+            JobSeeder::class,
+            ApplicationSeeder::class,
+            EmployerDataSeeder::class,
         ]);
-
     }
 }

@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreJobRequest;
+use App\Http\Requests\UpdateJobRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Models\Application;
 
 
 
@@ -12,30 +16,11 @@ use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
-    // public function index(Request $request)
-    // {
-    //     // Get filter inputs
-    //     $search = $request->input('search');
-    //     $minSalary = $request->input('min_salary');
-    //     $maxSalary = $request->input('max_salary');
-    //     $company_id = $request->input('company_id');
-    //     $is_featured = $request->input('featured');
 
-    //     // Query with scopes
-    //     $jobs = Job::search($search)
-    //         ->salaryRange($minSalary, $maxSalary)
-    //         ->company($company_id)
-    //         ->featured($is_featured)
-    //         ->paginate(10); // Paginate results
-
-    //     return view('jobs.index', compact('jobs'));
-
-    //     $jobs = Job::all();
-    //      return view('jobs.index', compact('jobs'));
-    // }
     public function index(Request $request)
     {
         // Validate the inputs
@@ -80,13 +65,9 @@ class JobController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreJobRequest $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'salary' => 'required|numeric',
-        ]);
+     
 
         // Get the authenticated employer's company_id
         $companyId = optional(Auth::user()->employers)->id;
@@ -103,8 +84,7 @@ class JobController extends Controller
         ]);
 
         return redirect()->route('jobs.index')->with('success', 'Job created successfully.');
-        // Job::create($request->all());
-        // return redirect()->route('jobs.index');
+      
     }
 
     /**
@@ -127,18 +107,51 @@ class JobController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Job $job)
+    public function update(UpdateJobRequest $request, Job $job)
     {
-        $job->update($request->all());
-        return redirect()->route('jobs.index');
+        
+        $this->authorize('update', $job);
+        $job->update($request->validated());
+
+
+        return redirect()->route('jobs.index',compact('job'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
+    // public function destroy(Job $job)
+    // {
+    //     $job->delete();
+    //     return redirect()->route('jobs.index');
+    // }
     public function destroy(Job $job)
     {
+        $this->authorize('delete', $job);
+
         $job->delete();
-        return redirect()->route('jobs.index');
+
+        return redirect()->route('jobs.index')->with('success', 'Job deleted successfully.');
+    }
+    public function apply(Request $request, Job $job)
+    {
+        // تحقق من أن المستخدم مسجل دخول
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'يجب تسجيل الدخول قبل التقديم على الوظيفة.');
+        }
+
+        // التحقق من البيانات
+        $request->validate([
+            'message' => 'nullable|string|max:1000',
+        ]);
+
+        // إنشاء طلب التقديم
+        Application::create([
+            'user_id' => auth()->id(),
+            'job_id' => $job->id,
+            'message' => $request->message,
+        ]);
+
+        return redirect()->back()->with('success', 'تم تقديم طلبك بنجاح!');
     }
 }

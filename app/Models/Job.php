@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+
 class Job extends Model
 {
     use HasFactory;
@@ -14,14 +15,22 @@ class Job extends Model
         'salary',
         'company_id',
         'featured',
+        'status',
+        
     ];
 
     // Ensure tags are cast as an array
 
-    public function application()
+    public function applications()
     {
         return $this->hasMany(Application::class);
     }
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'job_tag');

@@ -50,9 +50,9 @@ class User extends Authenticatable
 
     }
     // Add your custom methods here
-    public function Application()
+    public function applications()
     {
-        return $this->belongsTo(Application::class);
+        return $this->hasMany(Application::class);
     }
     public function resume()
     {
@@ -61,6 +61,10 @@ class User extends Authenticatable
     public function jobs()
     {
         return $this->hasMany(Job::class);
+    }
+    public function company()
+    {
+        return $this->hasOne(Company::class);
     }
     public function isAdmin(): bool
     {

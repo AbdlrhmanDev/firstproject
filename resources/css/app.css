@@ -3,7 +3,9 @@
 @import "perfect-scrollbar/css/perfect-scrollbar.css";
 @import "tailwindcss/utilities";
 
-
+.glass-card {
+    @apply rounded-2xl p-6 shadow-lg backdrop-blur-md transition-transform hover:scale-105 hover:shadow-xl;
+}
  body {
      min-height: 100vh;
      overflow-x: hidden;

@@ -1,21 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- Drawer Trigger Button (Mobile) -->
-    <button id="toggleSidebar" data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar"
-        aria-controls="default-sidebar" type="button"
-        class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+
+    <!-- 🔘 Drawer Toggle Button (Mobile) -->
+    <button id="toggleSidebar" type="button"
+        class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden m hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
         <span class="sr-only">Open sidebar</span>
-        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path clip-rule="evenodd" fill-rule="evenodd"
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
             </path>
         </svg>
     </button>
 
-    <!-- Sidebar -->
-    <aside id="default-sidebar"
-        class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 bg-white/10 backdrop-blur-lg border-r border-white/20 shadow-xl text-white rounded-tr-3xl rounded-br-3xl"
+    <!-- 📱 Overlay for small screens -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-30 hidden sm:hidden"></div>
+
+    <!-- 📂 Sidebar -->
+    <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform transform -translate-x-full sm:translate-x-0
+            bg-white/10 backdrop-blur-lg border-r border-white/20 shadow-xl text-white rounded-tr-3xl rounded-br-3xl"
         aria-label="Sidebar">
         <div class="h-full px-3 py-4 overflow-y-auto">
             <h2 class="text-2xl font-extrabold text-center mb-6 mt-4">User Dashboard</h2>
@@ -39,15 +42,35 @@
         </div>
     </aside>
 
-    <!-- Main Content -->
+    <!-- 🧱 Main Content Area -->
     <div class="p-4 sm:ml-64">
-        <div class="p-4  rounded-lg dark:border-gray-700">
-            <h1 class="text-3xl font-extrabold text-white mb-4">Welcome, {{ Auth::user()->name }}</h1>
+        <div class="p-4 rounded-lg dark:border-gray-700">
+            <h1 class="text-3xl font-extrabold text-white mb-4">
+                Welcome, {{ Auth::user()->name }}
+            </h1>
+
+            <!-- 🔲 Content Card -->
             <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-6 rounded-lg shadow-lg">
                 @yield('dashboard-content')
             </div>
         </div>
     </div>
 
-    
+    <!-- ✅ Sidebar JS Toggle -->
+    {{-- <script>
+        const sidebar = document.getElementById('default-sidebar');
+        const toggleBtn = document.getElementById('toggleSidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+    </script> --}}
+
 @endsection

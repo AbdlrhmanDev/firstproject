@@ -1,50 +1,85 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "perfect-scrollbar/css/perfect-scrollbar.css";
-@import "tailwindcss/utilities";
+/* Tailwind CSS Base Imports */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
+/* Base Styles */
+h1 {
+    min-height: 3rem;
+}
+
+/* Glass Card Component */
 .glass-card {
     @apply rounded-2xl p-6 shadow-lg backdrop-blur-md transition-transform hover:scale-105 hover:shadow-xl;
 }
- body {
-     min-height: 100vh;
-     overflow-x: hidden;
-     background-color: #000;
- }
 
+/* Body Styles */
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: #000;
+}
+
+/* Dark Mode Scrollbar */
 .dark .ps__rail-y,
 .dark .ps__rail-x {
     background-color: transparent !important;
 }
-  .swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet,
-        .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
-            width: 16px !important;
-            height: 4px !important;
-            border-radius: 5px !important;
-            margin: 0 6px !important;
-        }
 
-        .swiper-pagination {
-            bottom: 2px !important;
-        }
+/* Swiper Pagination Styles */
+.swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet,
+.swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+    width: 16px !important;
+    height: 4px !important;
+    border-radius: 5px !important;
+    margin: 0 6px !important;
+}
 
-        .swiper-wrapper {
-            height: max-content !important;
-            width: max-content !important;
-            padding-bottom: 64px;
-        }
+.swiper-pagination {
+    bottom: 2px !important;
+}
 
-        .swiper-pagination-bullet-active {
-            background: #4F46E5 !important;
-        }
-        
-        .swiper-slide.swiper-slide-active>.slide_active\:border-indigo-600 {
-            --tw-border-opacity: 1;
-            border-color: rgb(79 70 229 / var(--tw-border-opacity));
-        }
+.swiper-wrapper {
+    height: max-content !important;
+    width: max-content !important;
+    padding-bottom: 64px;
+}
 
-        .swiper-slide.swiper-slide-active>.group .slide_active\:text-gray-800 {
-            ---tw-text-opacity: 1;
-            color: rgb(31 41 55 / var(--tw-text-opacity));
-        }
+.swiper-pagination-bullet-active {
+    background: #4F46E5 !important;
+}
 
+/* Active Slide Styles */
+.swiper-slide.swiper-slide-active>.slide_active\:border-indigo-600 {
+    --tw-border-opacity: 1;
+    border-color: rgb(79 70 229 / var(--tw-border-opacity));
+}
+
+.swiper-slide.swiper-slide-active>.group .slide_active\:text-gray-800 {
+    ---tw-text-opacity: 1;
+    color: rgb(31 41 55 / var(--tw-text-opacity));
+}
+
+/* Animation Keyframes */
+@keyframes loopMove {
+    0% {
+        transform: translateX(0) translateY(0);
+    }
+    25% {
+        transform: translateX(20px) translateY(-10px);
+    }
+    50% {
+        transform: translateX(0px) translateY(10px);
+    }
+    75% {
+        transform: translateX(-20px) translateY(-10px);
+    }
+    100% {
+        transform: translateX(0) translateY(0);
+    }
+}
+
+/* Animation Class */
+.animate-loop-slow {
+    animation: loopMove 8s ease-in-out infinite;
+}

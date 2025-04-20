@@ -13,6 +13,7 @@ class AppServiceProvider extends ServiceProvider
     public const EMPLOYER_HOME = '/employer/home';
     protected $policies = [
         Job::class => JobPolicy::class,
+        
     ];
 
     /**
@@ -28,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
         //
     }
 }

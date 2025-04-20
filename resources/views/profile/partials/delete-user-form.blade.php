@@ -1,53 +1,65 @@
-<section
-    class="space-y-6 p-6 backdrop-blur-lg bg-white/10 dark:bg-white/5 border border-white/20 shadow-lg rounded-2xl">
+<section class="space-y-6">
     <header>
-        <h2 class="text-2xl font-bold text-gray-100">
-            {{ __('Delete Account') }}
-        </h2>
-
+      
         <p class="mt-2 text-sm text-gray-300">
-            {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
+            Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting
+            your account, please download any data or information that you wish to retain.
         </p>
     </header>
 
-    <x-danger-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-        class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl shadow">
-        {{ __('Delete Account') }}
-    </x-danger-button>
+    <!-- Trigger Delete Modal -->
+    <button onclick="document.getElementById('delete-modal').classList.remove('hidden')"
+        class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-900">
+        Delete Account
+    </button>
 
-    <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('profile.destroy') }}"
-            class="p-6 bg-white dark:bg-gray-900 rounded-xl shadow-xl">
-            @csrf
-            @method('delete')
-
-            <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
-                {{ __('Are you sure you want to delete your account?') }}
+    <!-- Modal -->
+    <div id="delete-modal"
+        class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden">
+        <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-2xl w-full max-w-md transform transition-all">
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
+                <span class="p-2 bg-red-500/20 rounded-lg">⚠️</span>
+                Delete Account
             </h2>
 
             <p class="text-sm text-gray-700 dark:text-gray-400">
-                {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
+                Once your account is deleted, all of its resources and data will be permanently deleted. Please enter
+                your password to confirm you would like to permanently delete your account.
             </p>
 
-            <div class="mt-6">
-                <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
+            <!-- Form -->
+            <form method="POST" action="{{ route('profile.destroy') }}" class="mt-6">
+                @csrf
+                @method('DELETE')
 
-                <x-text-input id="password" name="password" type="password"
-                    class="mt-1 block w-full bg-white/20 text-white border border-gray-500/30 rounded-md placeholder-gray-400"
-                    placeholder="{{ __('Password') }}" />
+                <!-- Password -->
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                    <input type="password" name="password" placeholder="Enter your password"
+                        class="pl-10 mt-1 block w-full bg-white/20 text-white border border-gray-500/30 rounded-lg px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition duration-150 ease-in-out" />
+                </div>
 
-                <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2 text-red-400" />
-            </div>
+                @if ($errors->userDeletion->has('password'))
+                    <p class="text-sm text-red-400 mt-2">{{ $errors->userDeletion->first('password') }}</p>
+                @endif
 
-            <div class="mt-6 flex justify-end gap-3">
-                <x-secondary-button x-on:click="$dispatch('close')" class="px-4 py-2 rounded-md shadow text-gray-300">
-                    {{ __('Cancel') }}
-                </x-secondary-button>
+                <!-- Actions -->
+                <div class="mt-6 flex justify-end gap-3">
+                    <button type="button" onclick="document.getElementById('delete-modal').classList.add('hidden')"
+                        class="px-4 py-2 rounded-lg shadow text-gray-300 hover:bg-gray-700 transition focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900">
+                        Cancel
+                    </button>
 
-                <x-danger-button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md shadow">
-                    {{ __('Delete Account') }}
-                </x-danger-button>
-            </div>
-        </form>
-    </x-modal>
+                    <button type="submit" 
+                        class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg shadow-lg transform transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-900">
+                        Delete Account
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </section>

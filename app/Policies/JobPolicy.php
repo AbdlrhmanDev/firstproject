@@ -13,7 +13,7 @@ class JobPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true; // Allow viewing job listings
     }
 
     /**
@@ -21,7 +21,7 @@ class JobPolicy
      */
     public function view(User $user, Job $job): bool
     {
-        return false;
+        return true; // Allow viewing individual jobs
     }
 
     /**
@@ -29,7 +29,7 @@ class JobPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->company !== null; // Allow if user has a company
     }
 
     /**
@@ -37,24 +37,23 @@ class JobPolicy
      */
     public function update(User $user, Job $job): bool
     {
-        return false;
+        return $user->company && $job->company_id === $user->company->id;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Job $job)
+    public function delete(User $user, Job $job): bool
     {
-        return $user->id === $job->company->user_id; // السماح فقط لصاحب الوظيفة بحذفها
+        return $user->company && $job->company_id === $user->company->id;
     }
-
 
     /**
      * Determine whether the user can restore the model.
      */
     public function restore(User $user, Job $job): bool
     {
-        return false;
+        return $user->company && $job->company_id === $user->company->id;
     }
 
     /**
@@ -62,6 +61,6 @@ class JobPolicy
      */
     public function forceDelete(User $user, Job $job): bool
     {
-        return false;
+        return $user->company && $job->company_id === $user->company->id;
     }
 }

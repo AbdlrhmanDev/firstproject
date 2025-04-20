@@ -9,12 +9,16 @@ module.exports = {
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
         "./resources/js/**/*.js",
+        "./node_modules/flowbite/**/*.js",
     ],
 
     theme: {
         extend: {
             fontFamily: {
                 sans: ["Inter", ...defaultTheme.fontFamily.sans],
+            },
+            screens: {
+                "lg-custom": "1132px",
             },
 
             colors: {
@@ -39,5 +43,5 @@ module.exports = {
             },
         },
     },
-    plugins: [require("@tailwindcss/forms")],
+    plugins: [require("@tailwindcss/forms"), require("flowbite/plugin")],
 };

@@ -27,7 +27,8 @@ class JobFactory extends Factory
             'salary' => $this->faker->randomFloat(2, 30000, 150000),
             'company_id' => Employer::inRandomOrder()->first()->id ?? Employer::factory()->create()->id,
             'featured' => true,
-            'logo'=> $this->faker->url(),
+            'logo' => 'logos/' . $this->faker->slug() . '.png',
+            'tags' => Tag::inRandomOrder()->take(3)->pluck('id')->toArray
         ];
     }
 

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-
-
 use App\Models\Resume;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -12,7 +10,9 @@ use Illuminate\Http\Request;
 class ResumeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the user's resumes.
+     *
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -20,9 +20,10 @@ class ResumeController extends Controller
         return view('user.resume.index', compact('resumes'));
     }
 
-
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resume.
+     *
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -30,11 +31,14 @@ class ResumeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resume in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
      */
-    // Store resume in the database
     public function store(Request $request)
     {
+        // Validate the incoming request data
         $request->validate([
             'full_name'    => 'required|string|max:255',
             'phone'        => 'required|string|max:20',
@@ -46,72 +50,85 @@ class ResumeController extends Controller
             'summary'      => 'nullable|string',
         ]);
 
-        // Add user ID to the validated data
-        $resumeData = $request->all();
-        $resumeData['user_id'] = Auth::id();
+        // Create resume with authenticated user's ID
+        Resume::create([
+            'user_id'     => Auth::id(),
+            'full_name'   => $request->full_name,
+            'phone'       => $request->phone,
+            'email'       => $request->email,
+            'address'     => $request->address,
+            'skills'      => $request->skills,
+            'experience'  => $request->experience,
+            'education'   => $request->education,
+            'summary'     => $request->summary,
+        ]);
 
-        // Store the resume in the database
-        Resume::create($resumeData);
-
-        // Fetch all resumes for the authenticated user
-        $resumes = Resume::where('user_id', Auth::id())->get();
-
-        // Return to the index view with the user's resumes
-        return view('user.resume.index', compact('resumes'))
+        // Redirect to index with success message
+        return redirect()->route('user.resume.index')
             ->with('success', 'Resume created successfully!');
     }
 
-
     /**
-     * Display the specified resource.
+     * Display the specified resume.
+     *
+     * @param  \App\Models\Resume  $resume
+     * @return \Illuminate\View\View
      */
-    // ResumeController.php
-
     public function show(Resume $resume)
     {
         return view('user.resume.show', compact('resume'));
     }
 
-
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified resume.
+     *
+     * @param  \App\Models\Resume  $resume
+     * @return \Illuminate\View\View
      */
     public function edit(Resume $resume)
     {
         return view('user.resume.edit', compact('resume'));
     }
 
-
     /**
-     * Update the specified resource in storage.
+     * Update the specified resume in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Resume  $resume
+     * @return \Illuminate\Http\RedirectResponse
      */
-  
     public function update(Request $request, Resume $resume)
     {
+        // Validate the incoming request data
         $request->validate([
             'full_name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'email' => 'required|email',
-            'address' => 'nullable|string|max:255',
-            'skills' => 'nullable|string',
-            'experience' => 'nullable|string',
+            'phone'     => 'required|string|max:20',
+            'email'     => 'required|email',
+            'address'   => 'nullable|string|max:255',
+            'skills'    => 'nullable|string',
+            'experience'=> 'nullable|string',
             'education' => 'nullable|string',
-            'summary' => 'nullable|string',
+            'summary'   => 'nullable|string',
         ]);
 
+        // Update the resume with validated data
         $resume->update($request->all());
 
-        return redirect()->route('user.resume.show', $resume)->with('success', 'Resume updated successfully!');
+        // Redirect to show page with success message
+        return redirect()->route('user.resume.show', $resume)
+            ->with('success', 'Resume updated successfully!');
     }
 
-
-
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resume from storage.
+     *
+     * @param  \App\Models\Resume  $resume
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Resume $resume)
     {
         $resume->delete();
-        return redirect()->route('user.resume.index')->with('success', 'Resume deleted successfully.');
+        return redirect()->route('user.resume.index')
+            ->with('success', 'Resume deleted successfully.');
     }
 }

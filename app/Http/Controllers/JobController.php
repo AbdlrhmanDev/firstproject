@@ -3,72 +3,85 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use App\Models\Application;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use App\Models\Application;
-
-
-
-
-use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
     use AuthorizesRequests;
-    /**
-     * Display a listing of the resource.
-     */
 
+    /**
+     * Display a listing of jobs with optional search and filtering.
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
     public function index(Request $request)
     {
-        // Validate the inputs
-        $validated = $request->validate([
-            'search' => 'nullable|string|max:255',
-            'min_salary' => 'nullable|numeric|min:0',
-            'max_salary' => 'nullable|numeric|min:0|gte:min_salary',
-            'company_id' => 'nullable|integer|exists:companies,id',
-            'featured' => 'nullable|boolean',
-        ]);
+        // Clean and process URL parameters
+        $allParams = $request->query();
 
-        // Extract values with defaults
-        $search = $validated['search'] ?? null;
-        $minSalary = $validated['min_salary'] ?? null;
-        $maxSalary = $validated['max_salary'] ?? null;
-        $companyId = $validated['company_id'] ?? null;
-        // Fix: Safely handle the 'featured' key
-        $isFeatured = isset($validated['featured'])
-            ? filter_var($validated['featured'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)
-            : null;
-        // Build the query dynamically using when
-        $jobs = Job::query()
-            ->when($search, fn($query) => $query->search($search))
-            ->when($minSalary !== null && $maxSalary !== null, fn($query) => $query->salaryRange($minSalary, $maxSalary))
-            ->when($companyId, fn($query) => $query->company($companyId))
-            ->when(!is_null($isFeatured), fn($query) => $query->featured($isFeatured))
-            ->orderBy('created_at', 'desc') // Order results by creation date
-            ->paginate(10)
-            ->appends($request->query()); // Preserve filter parameters in pagination links
+        // Replace spaces with underscores in search parameter
+        if (isset($allParams['search'])) {
+            $allParams['search'] = str_replace(' ', '_', $allParams['search']);
+        }
+
+        // Remove empty parameters
+        $cleanParams = array_filter($allParams, function ($value) {
+            return trim($value) !== '';
+        });
+
+        // Redirect if parameters were cleaned
+        if ($request->query() != $cleanParams) {
+            return redirect()->route('jobs.index', $cleanParams);
+        }
+
+        // Build the job query
+        $jobs = Job::query();
+
+        // Apply search filter if provided
+        if ($request->filled('search')) {
+            $searchTerm = $request->input('search');
+            $words = array_filter(explode('_', $searchTerm));
+            
+            foreach ($words as $word) {
+                $jobs->where(function ($query) use ($word) {
+                    $query->where('title', 'LIKE', "%{$word}%")
+                          ->orWhere('description', 'LIKE', "%{$word}%");
+                });
+            }
+        }
+
+        // Get paginated results
+        $jobs = $jobs->orderBy('created_at', 'desc')->paginate(10);
 
         return view('jobs.index', compact('jobs'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new job.
+     *
+     * @return \Illuminate\View\View
      */
     public function create()
     {
-        return view('jobs.create');
+        $tags = \App\Models\Tag::all();
+        return view('jobs.create', compact('tags'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created job in storage.
+     *
+     * @param StoreJobRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreJobRequest $request)
     {
-     
-
         // Get the authenticated employer's company_id
         $companyId = optional(Auth::user()->employers)->id;
 
@@ -76,19 +89,27 @@ class JobController extends Controller
             return redirect()->back()->with('error', 'You must be an employer to post a job.');
         }
 
-        Job::create([
+        // Create the job
+        $job = Job::create([
             'title' => $request->title,
             'description' => $request->description,
             'salary' => $request->salary,
             'company_id' => $companyId,
         ]);
 
+        // Attach tags if provided
+        if ($request->has('tags')) {
+            $job->tags()->attach($request->tags);
+        }
+
         return redirect()->route('jobs.index')->with('success', 'Job created successfully.');
-      
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified job.
+     *
+     * @param Job $job
+     * @return \Illuminate\View\View
      */
     public function show(Job $job)
     {
@@ -96,56 +117,75 @@ class JobController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified job.
+     *
+     * @param Job $job
+     * @return \Illuminate\View\View
      */
     public function edit(Job $job)
     {
-        return view('jobs.edit', compact('job'));
+        $tags = \App\Models\Tag::all();
+        return view('jobs.edit', compact('job', 'tags'));
     }
 
-
     /**
-     * Update the specified resource in storage.
+     * Update the specified job in storage.
+     *
+     * @param UpdateJobRequest $request
+     * @param Job $job
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateJobRequest $request, Job $job)
     {
-        
         $this->authorize('update', $job);
+        
+        // Update job details
         $job->update($request->validated());
+        
+        // Sync tags
+        if ($request->has('tags')) {
+            $job->tags()->sync($request->tags);
+        } else {
+            $job->tags()->detach();
+        }
 
-
-        return redirect()->route('jobs.index',compact('job'));
+        return redirect()->route('jobs.index')->with('success', 'Job updated successfully.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified job from storage.
+     *
+     * @param Job $job
+     * @return \Illuminate\Http\RedirectResponse
      */
-    // public function destroy(Job $job)
-    // {
-    //     $job->delete();
-    //     return redirect()->route('jobs.index');
-    // }
     public function destroy(Job $job)
     {
         $this->authorize('delete', $job);
-
         $job->delete();
 
         return redirect()->route('jobs.index')->with('success', 'Job deleted successfully.');
     }
+
+    /**
+     * Apply for a job.
+     *
+     * @param Request $request
+     * @param Job $job
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function apply(Request $request, Job $job)
     {
-        // تحقق من أن المستخدم مسجل دخول
+        // Check if user is authenticated
         if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'يجب تسجيل الدخول قبل التقديم على الوظيفة.');
+            return redirect()->route('login')->with('error', 'You must be logged in to apply for a job.');
         }
 
-        // التحقق من البيانات
+        // Validate the application message
         $request->validate([
             'message' => 'nullable|string|max:1000',
         ]);
 
-        // إنشاء طلب التقديم
+        // Create the application
         Application::create([
             'user_id' => auth()->id(),
             'job_id' => $job->id,
@@ -153,5 +193,38 @@ class JobController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'تم تقديم طلبك بنجاح!');
+    }
+
+    /**
+     * Handle AJAX search requests for Select2 job title autocomplete.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function search(Request $request)
+    {
+        // Get the search term from the request
+        $term = $request->input('q', '');
+
+        // Return empty response if search term is too short
+        if (strlen($term) < 2) {
+            return response()->json([]);
+        }
+
+        // Query jobs matching the search term
+        $jobs = Job::where('title', 'LIKE', "%{$term}%")
+            ->select('title', 'id') // Include ID for better Select2 integration
+            ->distinct()
+            ->orderBy('title')
+            ->limit(10)
+            ->get()
+            ->map(function($job) {
+                return [
+                    'id' => $job->title, // Use title as ID for form submission
+                    'text' => $job->title // Display text in dropdown
+                ];
+            });
+        
+        return response()->json($jobs);
     }
 }

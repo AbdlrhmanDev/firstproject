@@ -9,9 +9,13 @@ class StoreJobRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    // public function authorize(): bool
+    // {
+    //     return \Illuminate\Support\Facades\Auth::check();
+    // }
+    public function authorize()
     {
-        return \Illuminate\Support\Facades\Auth::check();
+        return true; // Set to true if all users are authorized to make this request
     }
 
     /**

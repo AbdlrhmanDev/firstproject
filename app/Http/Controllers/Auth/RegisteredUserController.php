@@ -29,6 +29,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // dd($request->all());
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
@@ -45,6 +46,12 @@ class RegisteredUserController extends Controller
 
 
         ]);
+        if ($request->role === 'employer' && $request->has('company_name')) {
+            $user->company()->create([
+                'name' => $request->company_name,
+            ]);
+        }
+
 
         event(new Registered($user));
 

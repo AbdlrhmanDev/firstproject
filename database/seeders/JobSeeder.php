@@ -176,6 +176,8 @@ class JobSeeder extends Seeder
             'salary' => 100000,
             'company_id' => 9,
             'featured' => true,
+            
+            
         ]);
 
         Job::create([

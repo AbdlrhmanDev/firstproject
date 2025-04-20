@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
     $middleware->alias([
         'role' => \App\Http\Middleware\Role::class,
         'disable_back_btn' => \App\Http\Middleware\DisableBackBtn::class,
+        'setlocale' => \App\Http\Middleware\SetLocale::class,
 
        
         

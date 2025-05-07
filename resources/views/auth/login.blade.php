@@ -50,31 +50,66 @@
 
                             <!-- Email -->
                             <div class="relative group">
-                                <input type="email" name="email" id="email" required autocomplete="username"
-                                    class="peer w-full p-4 rounded-xl bg-white/5 border border-white/20 text-white placeholder-transparent focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/25 transition-all duration-300 group-hover:bg-white/10"
+                                <input type="email" name="email" id="email"  autocomplete="username"
+                                    class="peer w-full p-4 rounded-xl bg-white/5 border border-white/20 text-white placeholder-transparent focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/25 transition-all duration-300 group-hover:bg-white/10 @error('email') border-red-500/50 focus:border-red-500/50 focus:ring-red-500/25 @enderror"
                                     placeholder="Email" value="{{ old('email') }}">
                                 <label for="email"
                                     class="absolute left-4 -top-2.5 text-sm text-gray-300 bg-gray-900 px-2 transition-all duration-300
                                     peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-placeholder-shown:bg-transparent
-                                    peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-400 peer-focus:bg-gray-900">
+                                    peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-400 peer-focus:bg-gray-900 @error('email') text-red-400 peer-focus:text-red-400 @enderror">
                                     Email Address
                                 </label>
-                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                @error('email')
+                                    <div class="mt-2 flex items-center text-red-400">
+                                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-sm">{{ $message }}</span>
+                                    </div>
+                                @enderror
                             </div>
 
                             <!-- Password -->
                             <div class="relative group">
-                                <input type="password" name="password" id="password" required autocomplete="current-password"
-                                    class="peer w-full p-4 rounded-xl bg-white/5 border border-white/20 text-white placeholder-transparent focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/25 transition-all duration-300 group-hover:bg-white/10"
+                                <input type="password" name="password" id="password"  autocomplete="current-password"
+                                    class="peer w-full p-4 rounded-xl bg-white/5 border border-white/20 text-white placeholder-transparent focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/25 transition-all duration-300 group-hover:bg-white/10 @error('password') border-red-500/50 focus:border-red-500/50 focus:ring-red-500/25 @enderror"
                                     placeholder="Password">
                                 <label for="password"
                                     class="absolute left-4 -top-2.5 text-sm text-gray-300 bg-gray-900 px-2 transition-all duration-300
                                     peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-placeholder-shown:bg-transparent
-                                    peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-400 peer-focus:bg-gray-900">
+                                    peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-400 peer-focus:bg-gray-900 @error('password') text-red-400 peer-focus:text-red-400 @enderror">
                                     Password
                                 </label>
-                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                @error('password')
+                                    <div class="mt-2 flex items-center text-red-400">
+                                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-sm">{{ $message }}</span>
+                                    </div>
+                                @enderror
                             </div>
+
+                            <!-- General Error Message -->
+                            @if ($errors->any())
+                                <div class="bg-red-500/10 border border-red-500/50 rounded-xl p-4 mb-6">
+                                    <div class="flex items-center">
+                                        <svg class="w-6 h-6 text-red-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <div>
+                                            <h3 class="text-sm font-medium text-red-400">Login Failed</h3>
+                                            <div class="mt-1 text-sm text-red-300">
+                                                <ul class="list-disc list-inside">
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
 
                             <!-- Remember Me & Forgot Password -->
                             <div class="flex justify-between items-center">

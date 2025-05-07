@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class EmployerDataSeeder extends Seeder
 {
@@ -29,13 +27,14 @@ class EmployerDataSeeder extends Seeder
         ];
 
         foreach ($companies as $companyName) {
-            User::create([
-                'name' => $companyName,
-                'email' => strtolower($companyName) . '@example.com',
-                'password' => Hash::make('123456789'),
-                'role' => 'employer',
-            ]);
+            User::firstOrCreate(
+                ['email' => strtolower($companyName) . '@example.com'],
+                [
+                    'name' => $companyName,
+                    'password' => Hash::make('123456789'),
+                    'role' => 'employer',
+                ]
+            );
         }
-    
     }
 }

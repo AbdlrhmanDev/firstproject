@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Employer\EmployerJobController;
 use App\Http\Controllers\Employer\EmployerController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
 
 /*
@@ -43,6 +44,7 @@ Route::middleware(['setlocale'])->group(function () {
 
     // Home Page
     Route::get('/', [HomeController::class, 'index']);
+    Route::get('/tags/{tag}', [TagController::class, 'show'])->name('tags.show');
 
     // Static Pages (Jobs, Career, Salaries, Companies)
     Route::controller(PageController::class)->group(function () {

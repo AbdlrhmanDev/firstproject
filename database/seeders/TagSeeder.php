@@ -14,30 +14,70 @@ class TagSeeder extends Seeder
     public function run(): void
     {
         $tags = [
+            // Technology Tags
             'Technology',
-            'Marketing',
-            'Business',
-            'Design',
-            'Development',
             'Programming',
+            'Development',
             'Web Development',
             'Mobile Development',
+            'Cloud Computing',
+            'Cybersecurity',
+            'API Development',
+            'Backend Development',
+            
+            // Data & AI Tags
             'Data Science',
             'Artificial Intelligence',
             'Machine Learning',
-            'Cloud Computing',
-            'Cybersecurity',
+            'Data Analytics',
+            
+            // Design Tags
+            'Design',
+            'UI/UX',
+            'Graphic Design',
+            
+            // Marketing Tags
+            'Marketing',
             'Digital Marketing',
             'Content Marketing',
             'Social Media',
             'SEO',
-            'UI/UX',
+            'Marketing Strategy',
+            'Brand Strategy',
+            'Growth Marketing',
+            
+            // Business Tags
+            'Business',
             'Product Management',
-            'Startup'
+            'Startup',
+            'Strategy',
+            'Business Strategy',
+            'Operations Strategy',
+            'Corporate Strategy',
+            'Management',
+            'Leadership',
+            'Innovation',
+            'Consulting',
+            'Project Management',
+            'Change Management',
+            
+            // Industry Specific
+            'Finance',
+            'Healthcare',
+            'E-commerce',
+            'Education',
+            'Real Estate',
+            
+            // Skills
+            'Analytics',
+            'Research',
+            'Communication',
+            'Problem Solving',
+            'Team Management'
         ];
 
         foreach ($tags as $tag) {
-            Tag::create([
+            Tag::firstOrCreate([
                 'name' => $tag
             ]);
         }

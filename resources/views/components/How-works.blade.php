@@ -7,12 +7,7 @@
     }
 
     .swiper-pagination {
-        display: flex;
-        align-items: center;
-        justify-content: start;
-        gap: 16px;
-        position: relative;
-        margin-top: 2rem;
+        display: none; /* Hide the pagination dots */
     }
 
     .swiper-pagination-bullet {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 <head>
     <!-- Basic Meta Tags -->
     <meta charset="utf-8">
@@ -25,11 +25,11 @@
     <meta name="twitter:title" content="Job Portal - Find Your Dream Tech Job">
     <meta name="twitter:description" content="Sign up, upload your resume, and get hired by top employers in tech and design.">
     
-    <title>{{ config('app.name', 'Job Portal') }}</title>
+    <title>@yield('title', config('app.name', 'Laravel'))</title>
 
-    <!-- Fonts -->
+    {{-- <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"> --}}
 
     <!-- External Libraries -->
     <!-- Swiper -->
@@ -53,6 +53,8 @@
 
     <!-- Application Assets -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+ 
 </head>
 
 <body class="bg-black relative font-sans antialiased">

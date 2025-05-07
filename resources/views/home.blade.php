@@ -32,48 +32,99 @@
                     </h1>
 
                     <!-- Subtitle -->
-                    <p class="text-white/80 text-xl mb-12 max-w-xl leading-relaxed animate-slide-up-delayed">{{ __('home.subtitle') }}</p>
+                    <h2 class="text-white/80 text-xl mb-12 max-w-xl leading-relaxed animate-slide-up-delayed">{{ __('home.subtitle') }}</h2>
 
                     <!-- Search Bar -->
                     <div class="mb-12 animate-slide-up-more">
                         <form method="GET" action="{{ route('jobs.index') }}" class="relative" id="search-form">
-                            <div class="relative">
-                                <input type="text" name="search" id="job-search"
-                                    class="w-full p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 text-white text-lg focus:outline-none focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/20 transition-all duration-300 shadow-lg"
-                                    placeholder=" " value="{{ request('search') }}">
+                            <div class="relative group">
+                                <input type="text" 
+                                    name="search" 
+                                    id="job-search"
+                                    class="peer w-full p-4 rounded-xl bg-white/5 border border-white/20 text-white placeholder-transparent focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/25 transition-all duration-300 group-hover:bg-white/10"
+                                    placeholder="Search jobs..."
+                                    value="{{ request('search') }}"
+                                    aria-label="Search for jobs"
+                                    autocomplete="off">
 
                                 <label for="job-search"
-                                    class="absolute left-6 top-5 text-white/60 text-lg transition-all duration-300 peer-placeholder-shown:opacity-100 peer-focus:opacity-0">
-                                    {{ __('home.placeholder') }}
+                                    class="absolute left-4 top-4 text-blue-400 text-base transition-all duration-300
+                                    peer-placeholder-shown:text-gray-400
+                                    peer-focus:text-blue-400 peer-focus:text-sm peer-focus:-top-6
+                                    drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]">
+                                    Search jobs...
                                 </label>
 
-                                <button type="submit" class="absolute right-6 top-5 text-white/60 hover:text-white transition-colors" id="search-button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="search-icon">
+                                <button type="submit" 
+                                    class="absolute right-4 top-2 text-white/80 hover:text-white transition-colors p-4 min-w-[48px] min-h-[48px]" 
+                                    id="search-button"
+                                    aria-label="Search jobs">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="search-icon" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                     </svg>
-                                    <svg class="animate-spin h-6 w-6 text-white hidden" id="loading-spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <svg class="animate-spin h-6 w-6 text-white hidden" id="loading-spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>
                                 </button>
+
+                                @error('search')
+                                    <div class="mt-2 flex items-center text-red-400">
+                                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-sm">{{ $message }}</span>
+                                    </div>
+                                @enderror
                             </div>
                         </form>
                     </div>
 
+                    <script>
+                        document.getElementById('job-search').addEventListener('input', function(e) {
+                            const searchTerm = e.target.value;
+                            const errorDiv = document.getElementById('search-error');
+                            
+                            if (searchTerm.length > 0 && searchTerm.length < 2) {
+                                errorDiv.classList.remove('hidden');
+                                e.target.classList.add('border-red-500/50', 'focus:border-red-500/50', 'focus:ring-red-500/25');
+                            } else {
+                                errorDiv.classList.add('hidden');
+                                e.target.classList.remove('border-red-500/50', 'focus:border-red-500/50', 'focus:ring-red-500/25');
+                            }
+                        });
+
+                        // Show loading spinner when form is submitted
+                        document.getElementById('search-form').addEventListener('submit', function(e) {
+                            const searchTerm = document.getElementById('job-search').value;
+                            if (searchTerm.length < 2) {
+                                e.preventDefault();
+                                document.getElementById('search-error').classList.remove('hidden');
+                                return;
+                            }
+                            
+                            document.getElementById('search-icon').classList.add('hidden');
+                            document.getElementById('loading-spinner').classList.remove('hidden');
+                            document.getElementById('search-button').disabled = true;
+                        });
+                    </script>
+
                     <!-- Action Buttons -->
                     <div class="flex flex-wrap gap-4 animate-slide-up-more">
                         <a href="{{ route('jobs.index') }}"
-                            class="group inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold text-lg shadow-lg hover:shadow-blue-500/20 transition-all duration-300 hover:scale-105">
+                            class="group inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold text-lg shadow-lg hover:shadow-blue-500/20 transition-all duration-300 hover:scale-105 min-w-[160px] min-h-[56px] justify-center"
+                            aria-label="Browse all available jobs">
                             <span>{{ __('home.browse_jobs') }}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                             </svg>
                         </a>
 
                         <a href="{{ route('login') }}"
-                            class="group inline-flex items-center px-8 py-4 rounded-xl bg-white/10 backdrop-blur-xl text-white font-semibold text-lg border border-white/10 shadow-lg hover:bg-white/20 transition-all duration-300 hover:scale-105">
+                            class="group inline-flex items-center px-8 py-4 rounded-xl bg-white/10 backdrop-blur-xl text-white font-semibold text-lg border border-white/10 shadow-lg hover:bg-white/20 transition-all duration-300 hover:scale-105 min-w-[160px] min-h-[56px] justify-center"
+                            aria-label="Post a new job listing">
                             <span>{{ __('home.post_job') }}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                             </svg>
                         </a>
@@ -84,10 +135,16 @@
                 <div class="hidden lg:block relative">
                     <!-- Floating Cards -->
                     <div class="absolute -top-8 z-50 -right-8 w-64 p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-lg transform rotate-3 animate-float">
-                        <div class="text-4xl font-bold text-white mb-2">10K+</div>
-                        <div class="text-white/80">Active Jobs</div>
+                        <h3 class="text-4xl font-bold text-white mb-2">10K+</h3>
+                        <p class="text-white/80">Active Jobs</p>
                     </div>
 
+                    <div class="absolute -bottom-8 left-8 w-64 p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-lg transform rotate-3 animate-float z-50">
+                        <h3 class="text-4xl font-bold text-white mb-2">5K+</h3>
+                        <p class="text-white/80">Companies</p>
+                    </div>
+
+                    <!-- Main Illustration -->
                 <div
                     class="absolute -bottom-8 left-8 w-64 p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-lg transform rotate-3 animate-float z-50">
                     <div class="text-4xl font-bold text-white mb-2">5K+</div>

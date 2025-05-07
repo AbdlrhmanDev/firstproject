@@ -12,261 +12,139 @@ class JobSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-
-
-
-
     public function run(): void
     {
-        // Job::factory(10)->create();
-        //  Tag::factory(3)->create();
-        // $this->call([
-        //     EmployerSeeder::class,
-        //     // JobSeeder::class,
-        // ]);
+        // Get all tags
+        $tags = Tag::all();
 
-
-        Job::create([
-            'title' => 'Frontend Developer',
-            'description' => 'Develop user interfaces using React and Tailwind CSS.',
-            'salary' => 75000,
-            'company_id' => 3,
-            'featured' => true,
-        ]);
-
-        Job::create([
-            'title' => 'Backend Engineer',
-            'description' => 'Build and maintain server-side applications with Laravel.',
-            'salary' => 80000,
-            'company_id' => 1,
-            'featured' => false,
-        ]);
-
-        Job::create([
-            'title' => 'Graphic Designer',
-            'description' => 'Create visual content for marketing campaigns.',
-            'salary' => 45000,
-            'company_id' => 5,
-            'featured' => true,
-        ]);
-
-        Job::create([
-            'title' => 'Marketing Manager',
-            'description' => 'Lead digital marketing strategies and campaigns.',
-            'salary' => 65000,
-            'company_id' => 2,
-            'featured' => false,
-        ]);
-
-        Job::create([
-            'title' => 'DevOps Engineer',
-            'description' => 'Manage CI/CD pipelines and cloud infrastructure.',
-            'salary' => 90000,
-            'company_id' => 4,
-            'featured' => true,
-        ]);
-
-        Job::create([
-            'title' => 'Content Writer',
-            'description' => 'Write engaging blog posts and website copy.',
-            'salary' => 40000,
-            'company_id' => 6,
-            'featured' => false,
-        ]);
-
-        Job::create([
-            'title' => 'Product Manager',
-            'description' => 'Oversee product development and launch.',
-            'salary' => 85000,
-            'company_id' => 7,
-            'featured' => true,
-        ]);
-
-        Job::create([
-            'title' => 'UI/UX Designer',
-            'description' => 'Design intuitive user experiences for mobile apps.',
-            'salary' => 60000,
-            'company_id' => 8,
-            'featured' => false,
-        ]);
-
-        Job::create([
-            'title' => 'Database Administrator',
-            'description' => 'Optimize and manage MySQL databases.',
-            'salary' => 70000,
-            'company_id' => 9,
-            'featured' => true,
-        ]);
-
-        Job::create([
-            'title' => 'Sales Representative',
-            'description' => 'Drive sales through client outreach and meetings.',
-            'salary' => 55000,
-            'company_id' => 10,
-            'featured' => false,
-        ]);
-
-        Job::create([
-            'title' => 'Full Stack Developer',
-            'description' => 'Work on both frontend and backend technologies.',
-            'salary' => 82000,
-            'company_id' => 1,
-            'featured' => true,
-        ]);
-
-        Job::create([
-            'title' => 'HR Specialist',
-            'description' => 'Manage recruitment and employee relations.',
-            'salary' => 50000,
-            'company_id' => 3,
-            'featured' => false,
-        ]);
-
-        Job::create([
-            'title' => 'Cybersecurity Analyst',
-            'description' => 'Protect company systems from security threats.',
-            'salary' => 95000,
-            'company_id' => 2,
-            'featured' => true,
-        ]);
-
-        Job::create([
-            'title' => 'Social Media Manager',
-            'description' => 'Manage social media accounts and campaigns.',
-            'salary' => 48000,
-            'company_id' => 5,
-            'featured' => false,
-        ]);
-
-        Job::create([
-            'title' => 'Mobile App Developer',
-            'description' => 'Build iOS and Android applications using Flutter.',
-            'salary' => 78000,
-            'company_id' => 4,
-            'featured' => true,
-        ]);
-
-        Job::create([
-            'title' => 'Accountant',
-            'description' => 'Handle financial records and tax filings.',
-            'salary' => 60000,
-            'company_id' => 6,
-            'featured' => false,
-        ]);
-
-        Job::create([
-            'title' => 'Project Manager',
-            'description' => 'Coordinate teams to deliver projects on time.',
-            'salary' => 70000,
-            'company_id' => 7,
-            'featured' => true,
-        ]);
-
-        Job::create([
-            'title' => 'Customer Support Specialist',
-            'description' => 'Assist customers with product inquiries.',
-            'salary' => 42000,
-            'company_id' => 8,
-            'featured' => false,
-        ]);
-
-        Job::create([
-            'title' => 'Machine Learning Engineer',
-            'description' => 'Develop AI models for predictive analytics.',
-            'salary' => 100000,
-            'company_id' => 9,
-            'featured' => true,
+        // Define job-tag mappings
+        $jobTags = [
+            // Strategy & Management Jobs
+            'Chief Strategy Officer' => ['Strategy', 'Business Strategy', 'Corporate Strategy', 'Leadership', 'Management'],
+            'Strategic Planning Director' => ['Strategy', 'Business Strategy', 'Leadership', 'Management', 'Analytics'],
+            'Business Strategy Consultant' => ['Strategy', 'Business Strategy', 'Consulting', 'Analytics', 'Problem Solving'],
+            'Marketing Strategy Manager' => ['Marketing Strategy', 'Marketing', 'Strategy', 'Digital Marketing', 'Brand Strategy'],
+            'Growth Strategy Manager' => ['Strategy', 'Growth Marketing', 'Marketing Strategy', 'Analytics', 'Digital Marketing'],
+            'Operations Strategy Manager' => ['Strategy', 'Operations Strategy', 'Management', 'Business Strategy', 'Analytics'],
+            'Digital Strategy Director' => ['Strategy', 'Digital Marketing', 'Marketing Strategy', 'Innovation', 'Technology'],
+            'Brand Strategist' => ['Brand Strategy', 'Marketing Strategy', 'Marketing', 'Communication', 'Creative'],
+            'Management Consultant' => ['Strategy', 'Consulting', 'Business Strategy', 'Analytics', 'Problem Solving'],
+            'Innovation Strategy Manager' => ['Strategy', 'Innovation', 'Business Strategy', 'Leadership', 'Change Management'],
             
+            // Technology Jobs with Strategy Component
+            'API Developer' => ['Technology', 'Programming', 'Development', 'API Development', 'Backend Development'],
+            'Senior API Developer' => ['Technology', 'Programming', 'Development', 'API Development', 'Backend Development'],
+            'Integration Specialist' => ['Technology', 'API Development', 'Backend Development'],
+            'API Architect' => ['Technology', 'API Development', 'Backend Development', 'Cloud Computing', 'Strategy'],
+            'Frontend Developer' => ['Technology', 'Web Development', 'Programming', 'Development'],
+            'Backend Engineer' => ['Technology', 'Programming', 'Development', 'API Development', 'Backend Development'],
+            'Full Stack Developer' => ['Technology', 'Web Development', 'Programming', 'Development', 'API Development'],
             
-        ]);
+            // Marketing & Content Jobs
+            'Marketing Manager' => ['Marketing', 'Digital Marketing', 'Marketing Strategy', 'Brand Strategy', 'Leadership'],
+            'Content Strategy Manager' => ['Content Marketing', 'Marketing Strategy', 'Digital Marketing', 'Communication'],
+            'Digital Marketing Director' => ['Digital Marketing', 'Marketing Strategy', 'Marketing', 'Strategy', 'Leadership'],
+            'SEO Strategist' => ['SEO', 'Digital Marketing', 'Marketing Strategy', 'Analytics'],
+            'Social Media Strategist' => ['Social Media', 'Digital Marketing', 'Marketing Strategy', 'Communication'],
+            
+            // Business & Product Jobs
+            'Product Strategy Manager' => ['Product Management', 'Strategy', 'Business Strategy', 'Innovation'],
+            'Business Development Manager' => ['Business', 'Strategy', 'Sales', 'Leadership'],
+            'E-commerce Strategy Manager' => ['E-commerce', 'Strategy', 'Digital Marketing', 'Business Strategy'],
+            'Change Management Consultant' => ['Change Management', 'Strategy', 'Consulting', 'Leadership'],
+            
+            // Other Specialized Jobs
+            'Data Strategy Manager' => ['Data Analytics', 'Strategy', 'Business Strategy', 'Analytics'],
+            'Healthcare Strategy Consultant' => ['Healthcare', 'Strategy', 'Consulting', 'Business Strategy'],
+            'Education Program Strategist' => ['Education', 'Strategy', 'Program Management', 'Innovation'],
+            'Real Estate Investment Strategist' => ['Real Estate', 'Strategy', 'Finance', 'Analytics']
+        ];
 
-        Job::create([
-            'title' => 'SEO Specialist',
-            'description' => 'Optimize websites for search engine rankings.',
-            'salary' => 52000,
-            'company_id' => 10,
-            'featured' => false,
-        ]);
+        // Create jobs and attach tags
+        foreach ($jobTags as $title => $tagNames) {
+            $job = Job::create([
+                'title' => $title,
+                'description' => $this->getJobDescription($title),
+                'salary' => $this->getJobSalary($title),
+                'company_id' => rand(1, 10),
+                'featured' => rand(0, 1),
+            ]);
 
-        Job::create([
-            'title' => 'Business Analyst',
-            'description' => 'Analyze business processes and recommend improvements.',
-            'salary' => 68000,
-            'company_id' => 1,
-            'featured' => true,
-        ]);
+            // Attach relevant tags
+            foreach ($tagNames as $tagName) {
+                $tag = $tags->firstWhere('name', $tagName);
+                if ($tag) {
+                    $job->tags()->attach($tag->id);
+                }
+            }
+        }
+    }
 
-        Job::create([
-            'title' => 'Web Developer',
-            'description' => 'Create responsive websites using HTML, CSS, and JavaScript.',
-            'salary' => 65000,
-            'company_id' => 3,
-            'featured' => false,
-        ]);
+    private function getJobDescription($title)
+    {
+        $descriptions = [
+            'Chief Strategy Officer' => 'Lead organizational strategy development and execution, driving business growth and innovation.',
+            'Strategic Planning Director' => 'Develop and implement strategic initiatives to achieve long-term business objectives.',
+            'Business Strategy Consultant' => 'Provide strategic consulting services to optimize business operations and growth.',
+            'Marketing Strategy Manager' => 'Develop and execute comprehensive marketing strategies across multiple channels.',
+            'Growth Strategy Manager' => 'Lead strategic initiatives to drive business growth and market expansion.',
+            'Operations Strategy Manager' => 'Optimize operational processes and implement strategic improvements.',
+            'Digital Strategy Director' => 'Lead digital transformation initiatives and develop digital growth strategies.',
+            'Brand Strategist' => 'Develop and execute brand strategies to enhance market position and awareness.',
+            'Management Consultant' => 'Provide strategic consulting services to improve business performance.',
+            'Innovation Strategy Manager' => 'Drive innovation initiatives and develop new business opportunities.',
+            'API Developer' => 'Design and develop RESTful APIs using modern frameworks and best practices.',
+            'Senior API Developer' => 'Lead API development initiatives and mentor junior developers in API best practices.',
+            'Integration Specialist' => 'Create and maintain API integrations with third-party services and internal systems.',
+            'API Architect' => 'Design scalable API architectures and establish API development standards.',
+            'Content Strategy Manager' => 'Develop and execute content strategies aligned with business objectives.',
+            'Digital Marketing Director' => 'Lead digital marketing initiatives and develop comprehensive marketing strategies.',
+            'SEO Strategist' => 'Develop and implement SEO strategies to improve online visibility and traffic.',
+            'Social Media Strategist' => 'Create and execute social media strategies to enhance brand presence.',
+            'Product Strategy Manager' => 'Define and execute product strategy to drive growth and market adoption.',
+            'Business Development Manager' => 'Identify and develop new business opportunities and strategic partnerships.',
+            'E-commerce Strategy Manager' => 'Develop and implement e-commerce strategies to drive online sales growth.',
+            'Change Management Consultant' => 'Guide organizations through transformational change initiatives.',
+            'Data Strategy Manager' => 'Develop and implement data-driven strategies to improve business performance.',
+            'Healthcare Strategy Consultant' => 'Provide strategic consulting services to healthcare organizations.',
+            'Education Program Strategist' => 'Develop educational programs and strategies for learning institutions.',
+            'Real Estate Investment Strategist' => 'Develop real estate investment strategies and portfolio management.'
+        ];
 
-        Job::create([
-            'title' => 'Network Engineer',
-            'description' => 'Maintain and troubleshoot network infrastructure.',
-            'salary' => 72000,
-            'company_id' => 2,
-            'featured' => true,
-        ]);
+        return $descriptions[$title] ?? 'Lead strategic initiatives and drive business growth.';
+    }
 
-        Job::create([
-            'title' => 'Copywriter',
-            'description' => 'Write compelling ad copy for marketing materials.',
-            'salary' => 45000,
-            'company_id' => 5,
-            'featured' => false,
-        ]);
+    private function getJobSalary($title)
+    {
+        $salaries = [
+            'Chief Strategy Officer' => 180000,
+            'Strategic Planning Director' => 150000,
+            'Business Strategy Consultant' => 130000,
+            'Marketing Strategy Manager' => 120000,
+            'Growth Strategy Manager' => 125000,
+            'Operations Strategy Manager' => 130000,
+            'Digital Strategy Director' => 140000,
+            'Brand Strategist' => 95000,
+            'Management Consultant' => 120000,
+            'Innovation Strategy Manager' => 135000,
+            'API Developer' => 85000,
+            'Senior API Developer' => 120000,
+            'Integration Specialist' => 95000,
+            'API Architect' => 130000,
+            'Content Strategy Manager' => 90000,
+            'Digital Marketing Director' => 130000,
+            'SEO Strategist' => 85000,
+            'Social Media Strategist' => 75000,
+            'Product Strategy Manager' => 130000,
+            'Business Development Manager' => 110000,
+            'E-commerce Strategy Manager' => 115000,
+            'Change Management Consultant' => 125000,
+            'Data Strategy Manager' => 135000,
+            'Healthcare Strategy Consultant' => 140000,
+            'Education Program Strategist' => 95000,
+            'Real Estate Investment Strategist' => 125000
+        ];
 
-        Job::create([
-            'title' => 'Quality Assurance Tester',
-            'description' => 'Test software applications for bugs and issues.',
-            'salary' => 55000,
-            'company_id' => 4,
-            'featured' => true,
-        ]);
-
-        Job::create([
-            'title' => 'Operations Manager',
-            'description' => 'Oversee daily business operations and logistics.',
-            'salary' => 80000,
-            'company_id' => 6,
-            'featured' => false,
-        ]);
-
-        Job::create([
-            'title' => 'Data Scientist',
-            'description' => 'Analyze large datasets to uncover insights.',
-            'salary' => 95000,
-            'company_id' => 7,
-            'featured' => true,
-        ]);
-
-        Job::create([
-            'title' => 'Administrative Assistant',
-            'description' => 'Support office tasks and scheduling.',
-            'salary' => 38000,
-            'company_id' => 8,
-            'featured' => false,
-        ]);
-
-        Job::create([
-            'title' => 'Cloud Architect',
-            'description' => 'Design scalable cloud solutions on AWS.',
-            'salary' => 110000,
-            'company_id' => 9,
-            'featured' => true,
-        ]);
-
-        Job::create([
-            'title' => 'Event Coordinator',
-            'description' => 'Plan and execute corporate events.',
-            'salary' => 48000,
-            'company_id' => 10,
-            'featured' => false,
-        ]);
-
+        return $salaries[$title] ?? 100000;
     }
 }

@@ -84,9 +84,15 @@
         <div class="keen-slider__slide opacity-40 transition-opacity duration-500">
           <blockquote class="rounded-lg bg-[#223387] p-6 shadow-xs sm:p-8">
             <div class="flex items-center gap-4">
-              <img alt=""
-                src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
-                class="size-14 rounded-full object-cover" />
+              <img 
+                  alt="Profile picture"
+                  src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=75&fm=webp" 
+                  width="56"
+                  height="56"
+                  loading="lazy"
+                  decoding="async"
+                  class="size-14 rounded-full object-cover"
+              />
 
               <div>
                 <div class="flex justify-center gap-0.5 text-yellow-400">
@@ -125,9 +131,15 @@
         <div class="keen-slider__slide opacity-40 transition-opacity duration-500">
           <blockquote class="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8">
             <div class="flex items-center gap-4">
-              <img alt=""
-                src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
-                class="size-14 rounded-full object-cover" />
+              <img 
+                  alt="Profile picture"
+                  src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=75&fm=webp" 
+                  width="56"
+                  height="56"
+                  loading="lazy"
+                  decoding="async"
+                  class="size-14 rounded-full object-cover"
+              />
 
               <div>
                 <div class="flex justify-center gap-0.5 text-yellow-400">
@@ -166,9 +178,15 @@
         <div class="keen-slider__slide opacity-40 transition-opacity duration-500">
           <blockquote class="rounded-lg bg-[#2a3ea3] p-6 shadow-xs sm:p-8">
             <div class="flex items-center gap-4">
-              <img alt=""
-                src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
-                class="size-14 rounded-full object-cover" />
+              <img 
+                  alt="Profile picture"
+                  src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=75&fm=webp" 
+                  width="56"
+                  height="56"
+                  loading="lazy"
+                  decoding="async"
+                  class="size-14 rounded-full object-cover"
+              />
 
               <div>
                 <div class="flex justify-center gap-0.5 text-yellow-400">
@@ -207,9 +225,15 @@
         <div class="keen-slider__slide opacity-40 transition-opacity duration-500">
           <blockquote class="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8">
             <div class="flex items-center gap-4">
-              <img alt=""
-                src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
-                class="size-14 rounded-full object-cover" />
+              <img 
+                  alt="Profile picture"
+                  src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=75&fm=webp" 
+                  width="56"
+                  height="56"
+                  loading="lazy"
+                  decoding="async"
+                  class="size-14 rounded-full object-cover"
+              />
 
               <div>
                 <div class="flex justify-center gap-0.5 text-yellow-400">
@@ -392,8 +416,7 @@
         </p>
 
         <button aria-label="Next slide" id="keen-slider-next" class="text-white transition-colors hover:text-gray-300">
-          <svg class="size-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="size-5">
             <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
           </svg>
         </button>
@@ -412,93 +435,117 @@
       <div id="keen-slider" class="keen-slider">
 
         <!-- Slide 1 -->
-        <div class="keen-slider__slide opacity-40 transition-opacity duration-500">
-          <blockquote class="rounded-lg bg-[#223387] p-6 shadow-xs sm:p-8">
+        <div class="keen-slider__slide">
+          <blockquote class="rounded-lg bg-[#1a2875] p-6 shadow-lg sm:p-8">
             <div class="flex items-center gap-4">
-              <img alt="" src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?..."
-                class="size-14 rounded-full object-cover" />
+              <img 
+                  alt="Profile picture"
+                  src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=75&fm=webp" 
+                  width="56"
+                  height="56"
+                  loading="lazy"
+                  decoding="async"
+                  class="size-14 rounded-full object-cover"
+              />
               <div>
-                <div class="flex justify-center gap-0.5 text-yellow-400">
+                <div class="flex justify-center gap-0.5 text-yellow-300">
                   @for ($i = 0; $i < 5; $i++)
-            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20" fill="currentColor">
-            <path
-              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967h4.175c.969 0 1.371 1.24.588 1.81l-3.378 2.455 1.287 3.967c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.378 2.455c-.785.57-1.84-.197-1.54-1.118l1.287-3.967-3.378-2.455c-.784-.57-.38-1.81.588-1.81h4.175L9.049 2.927z" />
-            </svg>
-          @endfor
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967h4.175c.969 0 1.371 1.24.588 1.81l-3.378 2.455 1.287 3.967c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.378 2.455c-.785.57-1.84-.197-1.54-1.118l1.287-3.967-3.378-2.455c-.784-.57-.38-1.81.588-1.81h4.175L9.049 2.927z" />
+                    </svg>
+                  @endfor
                 </div>
-                <p class="mt-0.5 text-lg font-medium text-white">Backend Engineer</p>
+                <p class="mt-0.5 text-lg font-semibold text-white">Backend Engineer</p>
               </div>
             </div>
-            <p class="mt-4 text-gray-200">
+            <p class="mt-4 text-white text-opacity-90">
               Seeking an experienced Backend Engineer with strong knowledge of APIs
             </p>
           </blockquote>
         </div>
 
         <!-- Slide 2 -->
-        <div class="keen-slider__slide opacity-40 transition-opacity duration-500">
-          <blockquote class="rounded-lg bg-white p-6 shadow-xs sm:p-8">
+        <div class="keen-slider__slide">
+          <blockquote class="rounded-lg bg-white p-6 shadow-lg sm:p-8">
             <div class="flex items-center gap-4">
-              <img alt="" src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?..."
-                class="size-14 rounded-full object-cover" />
+              <img 
+                  alt="Profile picture"
+                  src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=75&fm=webp" 
+                  width="56"
+                  height="56"
+                  loading="lazy"
+                  decoding="async"
+                  class="size-14 rounded-full object-cover"
+              />
               <div>
-                <div class="flex justify-center gap-0.5 text-yellow-400">
+                <div class="flex justify-center gap-0.5 text-yellow-500">
                   @for ($i = 0; $i < 5; $i++)
-            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20" fill="currentColor">
-            <path
-              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967h4.175c.969 0 1.371 1.24.588 1.81l-3.378 2.455 1.287 3.967c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.378 2.455c-.785.57-1.84-.197-1.54-1.118l1.287-3.967-3.378-2.455c-.784-.57-.38-1.81.588-1.81h4.175L9.049 2.927z" />
-            </svg>
-          @endfor
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967h4.175c.969 0 1.371 1.24.588 1.81l-3.378 2.455 1.287 3.967c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.378 2.455c-.785.57-1.84-.197-1.54-1.118l1.287-3.967-3.378-2.455c-.784-.57-.38-1.81.588-1.81h4.175L9.049 2.927z" />
+                    </svg>
+                  @endfor
                 </div>
-                <p class="mt-0.5 text-lg font-medium text-gray-800">Frontend Developer</p>
+                <p class="mt-0.5 text-lg font-semibold text-gray-900">Frontend Developer</p>
               </div>
             </div>
-            <p class="mt-4 text-gray-800">
+            <p class="mt-4 text-gray-900">
               We are looking for a passionate Frontend Developer to join our team.
             </p>
           </blockquote>
         </div>
 
         <!-- Slide 3 -->
-        <div class="keen-slider__slide opacity-40 transition-opacity duration-500">
-          <blockquote class="rounded-lg bg-[#2a3ea3] p-6 shadow-xs sm:p-8">
+        <div class="keen-slider__slide">
+          <blockquote class="rounded-lg bg-[#1e2d7a] p-6 shadow-lg sm:p-8">
             <div class="flex items-center gap-4">
-              <img alt="" src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?..."
-                class="size-14 rounded-full object-cover" />
+              <img 
+                  alt="Profile picture"
+                  src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=75&fm=webp" 
+                  width="56"
+                  height="56"
+                  loading="lazy"
+                  decoding="async"
+                  class="size-14 rounded-full object-cover"
+              />
               <div>
-                <div class="flex justify-center gap-0.5 text-yellow-400">
+                <div class="flex justify-center gap-0.5 text-yellow-300">
                   @for ($i = 0; $i < 5; $i++)
-            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20" fill="currentColor">
-            <path
-              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967h4.175c.969 0 1.371 1.24.588 1.81l-3.378 2.455 1.287 3.967c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.378 2.455c-.785.57-1.84-.197-1.54-1.118l1.287-3.967-3.378-2.455c-.784-.57-.38-1.81.588-1.81h4.175L9.049 2.927z" />
-            </svg>
-          @endfor
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967h4.175c.969 0 1.371 1.24.588 1.81l-3.378 2.455 1.287 3.967c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.378 2.455c-.785.57-1.84-.197-1.54-1.118l1.287-3.967-3.378-2.455c-.784-.57-.38-1.81.588-1.81h4.175L9.049 2.927z" />
+                    </svg>
+                  @endfor
                 </div>
-                <p class="mt-0.5 text-lg font-medium text-white">Data Scientist</p>
+                <p class="mt-0.5 text-lg font-semibold text-white">Data Scientist</p>
               </div>
             </div>
-            <p class="mt-4 text-gray-200">
+            <p class="mt-4 text-white text-opacity-90">
               Looking for a Data Scientist to analyze and interpret complex data.
             </p>
           </blockquote>
         </div>
 
         <!-- Slide 4 -->
-        <div class="keen-slider__slide opacity-40 transition-opacity duration-500">
-          <blockquote class="rounded-lg bg-gray-100 p-6 shadow-xs sm:p-8">
+        <div class="keen-slider__slide">
+          <blockquote class="rounded-lg bg-white p-6 shadow-lg sm:p-8">
             <div class="flex items-center gap-4">
-              <img alt="" src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?..."
-                class="size-14 rounded-full object-cover" />
+              <img 
+                  alt="Profile picture"
+                  src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=75&fm=webp" 
+                  width="56"
+                  height="56"
+                  loading="lazy"
+                  decoding="async"
+                  class="size-14 rounded-full object-cover"
+              />
               <div>
-                <div class="flex justify-center gap-0.5 text-yellow-400">
+                <div class="flex justify-center gap-0.5 text-yellow-500">
                   @for ($i = 0; $i < 5; $i++)
-            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20" fill="currentColor">
-            <path
-              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967h4.175c.969 0 1.371 1.24.588 1.81l-3.378 2.455 1.287 3.967c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.378 2.455c-.785.57-1.84-.197-1.54-1.118l1.287-3.967-3.378-2.455c-.784-.57-.38-1.81.588-1.81h4.175L9.049 2.927z" />
-            </svg>
-          @endfor
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967h4.175c.969 0 1.371 1.24.588 1.81l-3.378 2.455 1.287 3.967c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.378 2.455c-.785.57-1.84-.197-1.54-1.118l1.287-3.967-3.378-2.455c-.784-.57-.38-1.81.588-1.81h4.175L9.049 2.927z" />
+                    </svg>
+                  @endfor
                 </div>
-                <p class="mt-0.5 text-lg font-medium text-gray-900">UX/UI Designer</p>
+                <p class="mt-0.5 text-lg font-semibold text-gray-900">UX/UI Designer</p>
               </div>
             </div>
             <p class="mt-4 text-gray-900">
@@ -512,24 +559,35 @@
       <!-- Navigation Buttons -->
       <div class="mt-6 flex items-center justify-center gap-4">
         <button aria-label="Previous slide" id="keen-slider-previous"
-          class="text-white transition-colors hover:text-gray-300">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="size-5">
+          class="text-white transition-colors hover:text-white/90 p-4 min-w-[48px] min-h-[48px] flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+            stroke="currentColor" class="size-6" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
           </svg>
         </button>
 
-        <p class="w-16 text-center text-sm text-gray-300">
+        <p class="w-16 text-center text-sm text-white font-medium">
           <span id="keen-slider-active" class="text-white"></span>
           /
           <span id="keen-slider-count" class="text-white"></span>
         </p>
 
-        <button aria-label="Next slide" id="keen-slider-next" class="text-white transition-colors hover:text-gray-300">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="size-5">
-            <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+        <button aria-label="Next slide" id="keen-slider-next" 
+          class="text-white transition-colors hover:text-white/90 p-4 min-w-[48px] min-h-[48px] flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" class="size-6" aria-hidden="true">
+            <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </button>
+      </div>
+
+      <!-- Swiper Pagination -->
+      <div class="swiper-pagination flex justify-center gap-2 mt-6">
+        @for ($i = 0; $i < 4; $i++)
+          <button class="swiper-pagination-bullet w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
+            aria-label="Go to slide {{ $i + 1 }}">
+            <span class="sr-only">Slide {{ $i + 1 }}</span>
+          </button>
+        @endfor
       </div>
     </div>
   </div>

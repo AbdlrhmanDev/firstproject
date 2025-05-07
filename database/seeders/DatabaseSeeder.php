@@ -6,8 +6,6 @@ use App\Models\Job;
 use App\Models\Employer;
 use App\Models\User;
 use App\Models\Tag;
-
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,44 +15,53 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Create Admin User
+        User::firstOrCreate(
+            ['email' => 'admin@example.com'],
+            [
+                'name' => 'Admin',
+                'password' => bcrypt('123456789'),
+                'role' => 'admin',
+            ]
+        );
 
-        User::create([
-            'name' => 'Admin',
-            'email' => 'admin@example.com',
-            'password' => bcrypt('123456789'),
-            'role' => 'admin',
-        ]);
-        User::create([
-            'name' => 'user',
-            'email' => 'user@example.com',
-            'password' => bcrypt('123456789'),
-            'role' => 'user',
-        ]);
+        // Create Regular User
+        User::firstOrCreate(
+            ['email' => 'user@example.com'],
+            [
+                'name' => 'user',
+                'password' => bcrypt('123456789'),
+                'role' => 'user',
+            ]
+        );
 
+        // Create Example Employer
+        $employer = User::firstOrCreate(
+            ['email' => 'employer@example.com'],
+            [
+                'name' => 'Employer One',
+                'password' => bcrypt('123456789'),
+                'role' => 'employer',
+            ]
+        );
 
-        $employer = User::create([
-            'name' => 'Employer One',
-            'email' => 'employer@example.com',
-            'password' => bcrypt('123456789'),
-            'role' => 'employer',
-        ]);
+        // Only create company if not exists (optional check)
+        if (!$employer->company) {
+            $employer->company()->create([
+                'name' => 'Tech Corp',
+                'description' => 'We build awesome stuff.',
+            ]);
+        }
 
-        $employer->company()->create([
-            'name' => 'Tech Corp',
-            'description' => 'We build awesome stuff.',
-        ]);
-
-
-
+        // Create employers using factory
         Employer::factory(20)->create();
-        //  Job::factory(10)->create();
-        Tag::factory(20)->create(); // Create 10 tags
+
+        // Seed in correct order
         $this->call([
-            // EmployerSeeder::class,
+            EmployerDataSeeder::class,
+            TagSeeder::class,
             JobSeeder::class,
             ApplicationSeeder::class,
-            EmployerDataSeeder::class,
         ]);
     }
 }

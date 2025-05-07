@@ -1,6 +1,6 @@
 <section class="space-y-6">
     <header>
-      
+       
         <p class="mt-2 text-sm text-gray-300">
             Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting
             your account, please download any data or information that you wish to retain.
@@ -17,10 +17,7 @@
     <div id="delete-modal"
         class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden">
         <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-2xl w-full max-w-md transform transition-all">
-            <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
-                <span class="p-2 bg-red-500/20 rounded-lg">⚠️</span>
-                Delete Account
-            </h2>
+          
 
             <p class="text-sm text-gray-700 dark:text-gray-400">
                 Once your account is deleted, all of its resources and data will be permanently deleted. Please enter

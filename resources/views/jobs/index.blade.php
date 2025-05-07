@@ -17,40 +17,84 @@
         </div>
 
         <!-- Search and Filter Section -->
-        <form method="GET" action="{{ route('jobs.index') }}"
-            class="mb-6 relative bg-white/[0.05] backdrop-blur-xl rounded-xl border border-white/10 p-6 shadow-lg">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
-                <!-- Search Input -->
-                <input type="text" name="search" placeholder="Search jobs..."
-                    class="bg-white/[0.05] border border-white/10 rounded-xl px-4 py-2 text-white placeholder-gray-400 focus:border-white/20 focus:ring-1 focus:ring-white/20 transition-all duration-300 hover:bg-white/[0.07]"
-                    value="{{ request('search') }}">
+        <form action="{{ route('jobs.index') }}" method="GET" class="relative z-10 mb-12">
+            <div class="p-6 bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-white/10 shadow-xl">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    {{-- Search Input --}}
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400 group-hover:text-purple-400 transition-colors duration-150" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <input type="text" 
+                            name="search" 
+                            value="{{ request('search') }}"
+                            placeholder="Search jobs..." 
+                            class="w-full pl-12 pr-4 py-3 bg-white/[0.05] text-white rounded-xl border border-white/10 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-200 placeholder-gray-400">
+                    </div>
 
-                <!-- Salary Range Inputs -->
-                <input type="number" name="min_salary" placeholder="Min Salary"
-                    class="bg-white/[0.05] border border-white/10 rounded-xl px-4 py-2 text-white placeholder-gray-400 focus:border-white/20 focus:ring-1 focus:ring-white/20 transition-all duration-300 hover:bg-white/[0.07]"
-                    value="{{ request('min_salary') }}">
+                    {{-- Min Salary --}}
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400 group-hover:text-purple-400 transition-colors duration-150" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <input type="number" 
+                            name="min_salary" 
+                            value="{{ request('min_salary') }}"
+                            placeholder="Min Salary" 
+                            class="w-full pl-12 pr-4 py-3 bg-white/[0.05] text-white rounded-xl border border-white/10 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-200 placeholder-gray-400">
+                    </div>
 
-                <input type="number" name="max_salary" placeholder="Max Salary"
-                    class="bg-white/[0.05] border border-white/10 rounded-xl px-4 py-2 text-white placeholder-gray-400 focus:border-white/20 focus:ring-1 focus:ring-white/20 transition-all duration-300 hover:bg-white/[0.07]"
-                    value="{{ request('max_salary') }}">
+                    {{-- Max Salary --}}
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400 group-hover:text-purple-400 transition-colors duration-150" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <input type="number" 
+                            name="max_salary" 
+                            value="{{ request('max_salary') }}"
+                            placeholder="Max Salary" 
+                            class="w-full pl-12 pr-4 py-3 bg-white/[0.05] text-white rounded-xl border border-white/10 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-200 placeholder-gray-400">
+                    </div>
 
-                <!-- Featured Status Select -->
-                <select name="featured"
-                    class="bg-white/[0.05] border border-white/10 rounded-xl px-4 py-2 text-white focus:border-white/20 focus:ring-1 focus:ring-white/20 transition-all duration-300 hover:bg-white/[0.07] appearance-none cursor-pointer">
-                    <option value="">All Jobs</option>
-                    <option value="1" {{ request('featured') == '1' ? 'selected' : '' }}>Featured</option>
-                    <option value="0" {{ request('featured') == '0' ? 'selected' : '' }}>Non-Featured</option>
-                </select>
+                    {{-- Featured Filter --}}
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400 group-hover:text-purple-400 transition-colors duration-150" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <select name="featured" 
+                            class="w-full pl-12 pr-10 py-3 bg-[#1a1a1a] text-white rounded-full border border-gray-700 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-200 appearance-none cursor-pointer hover:bg-[#252525]">
+                            <option value="">Featured Jobs</option>
+                            <option value="">All Jobs</option>
+                            <option value="1" {{ request('featured') === '1' ? 'selected' : '' }}>Featured Jobs</option>
+                            <option value="0" {{ request('featured') === '0' ? 'selected' : '' }}>Non-Featured Jobs</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                            <svg class="h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
 
-                <!-- Action Buttons -->
-                <div class="flex space-x-2">
-                    <button type="submit"
-                        class="bg-white/10 text-white px-4 py-2 rounded-xl font-medium transition-all duration-300 hover:bg-white/[0.15] hover:scale-[1.02] active:scale-95">
-                        Search
+                {{-- Search Buttons --}}
+                <div class="flex gap-4 mt-6">
+                    <button type="submit" 
+                        class="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-medium transition-all duration-200 hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-500/25 active:scale-[0.98]">
+                        Search Jobs
                     </button>
-                    <a href="{{ route('jobs.index') }}"
-                        class="bg-white/10 text-white px-4 py-2 rounded-xl font-medium transition-all duration-300 hover:bg-white/[0.15] hover:scale-[1.02] active:scale-95">
-                        Reset
+                    <a href="{{ route('jobs.index') }}" 
+                        class="px-6 py-3 bg-white/[0.05] text-white rounded-xl font-medium transition-all duration-200 hover:bg-white/[0.1] hover:scale-[1.02] active:scale-[0.98]">
+                        Reset Filters
                     </a>
                 </div>
             </div>
@@ -157,15 +201,15 @@
         <!-- Pagination Section -->
         @if($jobs->hasPages())
             <div class="mt-10 flex justify-center">
-                <nav class="flex items-center space-x-2">
+                <nav class="flex items-center space-x-2 bg-[#1a1a1a] rounded-full p-1 border border-purple-500/20 shadow-[0_0_15px_rgba(168,85,247,0.15)]">
                     <!-- Previous Page Link -->
                     @if ($jobs->onFirstPage())
-                        <span class="px-3 py-2 text-gray-500 bg-white/[0.05] rounded-xl opacity-50 cursor-not-allowed">
+                        <span class="px-4 py-2 text-gray-500 rounded-full opacity-50 cursor-not-allowed">
                             ← Prev
                         </span>
                     @else
                         <a href="{{ $jobs->previousPageUrl() }}"
-                            class="px-3 py-2 bg-white/10 text-white rounded-xl font-medium transition-all duration-300 hover:bg-white/[0.15] hover:scale-[1.02] active:scale-95">
+                            class="px-4 py-2 text-white rounded-full transition-all duration-200 hover:bg-white/5">
                             ← Prev
                         </a>
                     @endif
@@ -173,12 +217,12 @@
                     <!-- Page Numbers -->
                     @foreach ($jobs->getUrlRange(1, $jobs->lastPage()) as $page => $url)
                         @if ($page == $jobs->currentPage())
-                            <span class="px-4 py-2 bg-white/[0.15] text-white font-bold rounded-xl shadow-lg">
+                            <span class="px-4 py-2 bg-purple-500/10 text-purple-400 font-medium rounded-full">
                                 {{ $page }}
                             </span>
                         @else
                             <a href="{{ $url }}" 
-                                class="px-4 py-2 bg-white/10 text-white rounded-xl font-medium transition-all duration-300 hover:bg-white/[0.15] hover:scale-[1.02] active:scale-95">
+                                class="px-4 py-2 text-white rounded-full transition-all duration-200 hover:bg-white/5">
                                 {{ $page }}
                             </a>
                         @endif
@@ -187,11 +231,11 @@
                     <!-- Next Page Link -->
                     @if ($jobs->hasMorePages())
                         <a href="{{ $jobs->nextPageUrl() }}"
-                            class="px-3 py-2 bg-white/10 text-white rounded-xl font-medium transition-all duration-300 hover:bg-white/[0.15] hover:scale-[1.02] active:scale-95">
+                            class="px-4 py-2 text-white rounded-full transition-all duration-200 hover:bg-white/5">
                             Next →
                         </a>
                     @else
-                        <span class="px-3 py-2 text-gray-500 bg-white/[0.05] rounded-xl opacity-50 cursor-not-allowed">
+                        <span class="px-4 py-2 text-gray-500 rounded-full opacity-50 cursor-not-allowed">
                             Next →
                         </span>
                     @endif
